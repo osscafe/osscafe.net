@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>下北沢オープンソースCafe</title>
+	<meta name="keywords" content="下北沢, オープンソース, カフェ, コワーキング, 東京, 世田谷, Shimokitazawa, opensource, cafe, co-working, coworking, Tokyo, Setagaya" />
+	<meta name="description" content="下北沢なひと、オープンソースなひと、Jelly!なひとのための、協働空間。" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/style/images/osscafe.png" />
+	
+	<meta name="ajax.coming_events" content="../gateway.php?type=coming_events" />
+	<meta name="ajax.featured_events" content="../gateway.php?type=featured_events" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../style/home.html" />
+	<script src="../js/jquery-1.7.1.min.js"></script>
+	<script src="../js/yinyang.js"></script>
+</head>
+<body>
+	<h1 class="logo">下北沢オープンソースCafe</h1>
+	<ul class="buttons">
+		<li><a class="button github" href="https://github.com/osscafe">Fork me on GitHub</a></li>
+		<li><a class="button facebook" href="https://www.facebook.com/shimokitazawa.osscafe">Facebook</a></li>
+	</ul>
+	<p class="lead">下北沢なひと、オープンソースなひとへ、図書室のあるコワーキングカフェ。</p>
+	<hr />
+	<h2 class="no-margin-top">Jelly!, meetups, schools, and parties! C'mon and join us!</h2>
+	<div class="featured-event">
+		<!--{event in ajax.featured_events}-->
+		<h3><!--{event.date}-->Feb 11<!--{end}-->, <!--{event.day}-->SAT<!--{end}--></h3>
+		<h4><!--{event.name}-->2/11 Just Do(土) It. in 下北沢<!--{end}--></h4>
+		<p><!--{event.description|truncate:175}-->土曜日の朝から集まって、夜までいつもやらないタスクをやろうぜ！の集まりです。...<!--{end}--> <a href="https://www.facebook.com/events/#{event.id}/">>>詳しく</a></p>
+		<p class="photo"><img src="#{event.pic_big}" /></p>
+		<!--{end}-->
+	</div>
+	<ul class="events">
+		<!--{event in ajax.coming_events}-->
+		<li><a href="https://www.facebook.com/events/#{event.id}/" title="#{event.description}"><img src="#{event.pic_small}" alt="" width="50" height="50" /><span><!--{event.date}-->Feb 13<!--{end}--></span><!--{event.name}-->concrete5東京勉強会 第3回 - テーマとカスタムテンプレート<!--{end}--></a></li>
+		<!--{end}-->
+	</ul>
+	<p class="detail-link"><a href="./meetups.html">&raquo; Meetups</a></p>
+	<h2>Espresso, coffee, tea and more. See, talk, discuss and invent!</h2>
+	<p><img src="../style/images/fig-prices.png" /></p>
+	<p class="detail-link"><a href="./prices.html">&raquo; Prices &amp; Menu</a></p>
+	<h2>Find cool services and product. See the founders.</h2>
+	<p><img src="../style/images/fig-people.png" /></p>
+	<p class="detail-link"><a href="./people.html">&raquo; People</a></p>
+	<h2>Open source, Design, HTML, Ruby, PHP, databases, ...etc.</h2>
+	<p><img src="../style/images/fig-library.png" /></p>
+	<p class="detail-link"><a href="./library.html">&raquo; Library</a></p>
+</body>
+</html>

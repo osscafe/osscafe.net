@@ -1,0 +1,165 @@
+/* @group CSS reset */
+
+a, abbr, acronym, address, applet, article, aside, audio,
+b, blockquote, big, body,
+center, canvas, caption, cite, code, command,
+datalist, dd, del, details, dfn, dl, div, dt, 
+em, embed,
+fieldset, figcaption, figure, font, footer, form, 
+h1, h2, h3, h4, h5, h6, header, hgroup, html,
+i, iframe, img, ins,
+kbd, 
+keygen,
+label, legend, li, 
+meter,
+nav,
+object, ol, output,
+p, pre, progress,
+q, 
+s, samp, section, small, span, source, strike, strong, sub, sup,
+table, tbody, tfoot, thead, th, tr, tdvideo, tt,
+u, ul, 
+var { background: transparent; border: 0 none; font-size: 100%; margin: 0; padding: 0; vertical-align: baseline }
+
+/* @end */
+
+/* @group HTML5 */
+
+aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {display: block}
+
+/* @end */
+
+/* @group Basic */
+
+pre { color:#555; padding:1em 2.5em; border: 1px dotted #333; background:#F7F7F7; margin-bottom:1em; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; white-space: pre-wrap; word-wrap: break-word }
+img.photo { padding:10px; box-shadow: 0px 1px 3px #444; }
+img.photo[align="right"] { margin-left:20px; }
+img.photo[align="left"] { margin-right:20px; }
+
+body { background:url(images/body.png) }
+
+/* @end */
+
+/* @group Layouts */
+
+/* @group Header */
+
+body>header { background: url(images/header.png); height:64px; box-shadow: 0px 1px 3px #444; position:fixed; top:0; left:0; right:0; z-index:99; opacity:0.95; }
+body>header div.center { position:relative; width:900px; margin:0 auto }
+body>header div.center>h1 { position:absolute; top:9px; width:191px; height:59px; text-indent:-9999px; background:url(images/logo.png); }
+body>header div.center>h1>a { display:block; width:100%; height:100%; }
+body>header div.center>nav { position:absolute; top:23px; right:50px }
+body>header div.center>nav>a { margin:0 .5em; color:#666; font-weight:bold; text-decoration:none; text-shadow: #fff 1px 1px 0 }
+
+/* @end */
+
+/* @group Contents */
+
+#main-content { background: #FFF; padding:64px 0 3em }
+#main-content div.center { margin:0 auto; width:900px; background: }
+#main-content h1 { font-size:300%; margin-top:30px; margin-bottom:20px; color:#666; }
+
+#main-content h2 { position:absolute; background: url(images/h2.png); height:48px; left:0; right:0; box-shadow: 0px 1px 6px #444; color:#FFF; text-shadow: #000 -1px -1px 0; font-size: 24px; line-height:48px; text-align:center; margin:40px 0 }
+#main-content h2+* { margin-top:128px }
+#main-content h2.no-margin-top { margin-top:0; }
+#main-content h2.no-margin-top+* { margin-top:88px; }
+#main-content p { color:#555; text-align:justify; line-height:1.6em; margin-bottom:1em; }
+#main-content img.fig { float:left; margin-right:30px }
+#main-content ul { color:#555; padding:1em 2.5em .5em; border: 1px dotted #333; background:#F7F7F7; margin-bottom:1em; }
+#main-content ul ul { background:#FFF; border: 1px dotted #999; margin-top:.5em; padding-top:.5em; padding-bottom:0; }
+#main-content ul li { margin-bottom:.5em; }
+
+#main-content p.detail-link { margin:0 -10px; background:url(images/detail-link.png) top no-repeat; height:38px; position: relative; }
+#main-content p.detail-link a { position: absolute; right:25px; width:200px; text-align:center; line-height:32px; color:#FFF; text-decoration:none; }
+
+/* @group Billboard */
+
+#billboard { padding-top:0; background: url('images/photo.png') top no-repeat, url(images/cloth.png) top #FFF; }
+#billboard div.center { margin:0 auto; width:900px; padding-top:285px; height:200px; }
+#billboard h1.logo,
+#billboard p.lead { display:none }
+#billboard ul.buttons { margin-left:-5px; padding:0; list-style: none; border:none; background:none; }
+#billboard ul.buttons li { display: inline-block; margin-right:10px; margin-bottom:0; }	
+.button, .button:visited { background:#366779 url(images/button-overlay.png); display: inline-block; padding: 15px 0 16px; color: #fff; text-decoration: none; -moz-border-radius: 5px; -webkit-border-radius: 5px; -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5); -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5); text-shadow: 0 -1px 1px rgba(0,0,0,0.25); border-bottom: 1px solid rgba(0,0,0,0.25); position: relative; cursor: pointer; text-align: center; width: 198px; font-size: 16px; margin-bottom: 8px }
+.button:hover { background-color:#5297B1; color: #fff }
+.button:active { top: 1px }
+.button, .button:visited { font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25) }
+.github { background-image:url(images/button-overlay.png), url(images/octofication.png); background-repeat:repeat-x, no-repeat; background-position:left, 0 -1px; width:228px; }
+.facebook { background-image:url(images/button-overlay.png), url(images/facebook.png); background-repeat:repeat-x, no-repeat; background-position:left, 0 -1px; }
+
+#billboard+#main-content { padding-top:0; }
+
+
+/* @end */
+
+/* @group Events */
+
+#main-content div.featured-event { width:182px; height:284px; background:url(images/featured-event-background.png) no-repeat; padding:25px 28px 10px 196px; position: relative; color:#FFF; float:left; }
+#main-content div.featured-event h3 { font-size:30px; border-bottom:2px solid #FFF; padding-bottom:.2em; margin-bottom:.3em; }
+#main-content div.featured-event h4 { font-size:14px; border-bottom:1px solid #9EB7C1; padding-bottom:.4em; margin-bottom:.7em; }
+#main-content div.featured-event p { color:#FFF; font-size:12px; line-height:1.3em; height:150px; overflow:hidden; }
+#main-content div.featured-event p.photo { position:absolute; left:30px; top:25px; }
+#main-content div.featured-event p.photo img { width:150px; }
+#main-content ul.events { margin:0 0 15px 450px; padding:88px 0 0 0 ; background:none; border:none; min-height:304px; }
+#main-content ul.events li { border-top: 1px dashed #396C81; list-style: none; margin:0; padding:0; }
+#main-content ul.events li a { display:block; position:relative; margin:0; padding:6px 5px 6px 155px; font-size:14px; min-height:50px; text-decoration:none; color:#333; }
+#main-content ul.events li a:hover { background:#EBF0F2; }
+#main-content ul.events li a img { position:absolute; left:10px; }
+#main-content ul.events li a span { position:absolute; left:70px; font-size:22px; font-weight:bold; line-height:50px; color:#366779; }
+
+#main-content div.featured-event.upcoming { margin-top:110px; }
+#main-content ul.events.upcoming { margin-top:40px; }
+
+#main-content ul.held-events { padding:0; background:none; border:none; min-height:304px; }
+#main-content ul.held-events li { border-top: 1px dashed #396C81; list-style: none; margin:0; padding:0 }
+#main-content ul.held-events li a { display:block; position:relative; margin:0; padding:0 5px 0 155px; font-size:14px; height:44px; line-height:44px; text-decoration:none; color:#333; overflow:hidden; }
+#main-content ul.held-events li a:hover { background:#EBF0F2; }
+#main-content ul.held-events li a img { position:absolute; left:10px; top:10px; width:24px; height:24px; }
+#main-content ul.held-events li a span.date { position:absolute; left:70px; top:10px; font-size:16px; font-weight:bold; line-height:24px; color:#366779; }
+#main-content ul.held-events li a span.description { margin-left:1em; color:#999; }
+
+/* @end */
+
+/* @end */
+
+/* @group Footer */
+
+body>footer { background: url(images/footer.png) repeat-x; box-shadow: 0px -3px 3px #999 }
+body>footer div.center { width:900px; margin:0 auto; padding:30px 0; color:#999; text-align: center }
+body>footer div.center p { margin:1em 0; font-size:13px }
+body>footer div.center a.made-in-osscafe { display:inline-block; width: 320px; height:70px; text-indent:-9999px; background: url(images/made-in-osscafe.png) no-repeat }
+
+/* @end */
+
+/* @group Miscellaneous */
+
+img.github-ribon { position: absolute; top: 0; right: 0; border: 0; z-index:99; }
+a.see-my-template { position:fixed; bottom:100px; right:0; width:85px; height:155px; background:url(images/label.png); text-indent:-9999px; }
+span.leader { color:#999; padding-left:2em; }
+
+/* @end */
+
+/* @group Font face */
+
+* { font-family:"Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","Meiryo","メイリオ","ＭＳ Ｐゴシック",sans-serif; }
+body>header div.center>nav>a,
+#main-content h1,
+#main-content h2,
+#main-content p.logo-desc,
+#main-content p.lead,
+.button,
+body>footer { font-family:"Abril Fatface"; font-weight:normal; }
+#main-content p.lead,
+#main-content ul.events li span,
+#main-content div.featured-event h3 { font-family:"Raleway"; }
+
+/* @end */
+
+/* @end */
+
+/* @group Clear-fix */
+
+p:after { content:"."; display:block; clear:both; visibility:hidden; line-height:0; height:0 }
+
+/* @end */

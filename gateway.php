@@ -8,5 +8,5 @@ $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
 //$refresh = isset($_REQUEST['refresh']) && $_REQUEST['refresh'] == 'true';
 //$refresh = true;//for debug
 
-$gateway = new FacebookGateway($_SERVER['FB_APPID'], $_SERVER['FB_SECRET'], $_SERVER['FB_PAGEID']);
+$gateway = new FacebookGateway($_SERVER['HTTP_FB_APPID'], $_SERVER['HTTP_FB_SECRET'], $_SERVER['HTTP_FB_PAGEID']);
 echo $gateway->get_json($type);//, $refresh);

@@ -8,14 +8,16 @@ class FacebookGateway {
 		$this->pageId = $pageId;
 	}
 	
-	public function get_json($type, $refresh){
+	public function get_json($type){//, $refresh){
+		/*
 		$hash = md5($type);
 		$dir = APP_CACHE_DIR . '/fbgateway';
 		if (!file_exists($dir)) mkdir($dir, 0777, true);
 		$file = "$dir/$hash.json";
 		if (!$refresh && file_exists($file) && filemtime($file) > mktime()-60*60*6)
 			return file_get_contents($file);
-			
+		*/
+		
 		$data = array();
 		switch ($type){
 			case 'coming_events': $data = $this->coming_events(); break;
@@ -23,7 +25,8 @@ class FacebookGateway {
 			case 'last_20_events': $data = $this->last_20_events(); break;
 		}
 		$json = json_encode($data);
-		file_put_contents($file, $json);
+		//file_put_contents($file, $json);
+		header('Cache-Control: public,max-age=3600');
 		return $json;
 	}
 	

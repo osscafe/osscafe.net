@@ -50,7 +50,7 @@ function mb_detect_order($encoding_list = '')
 	if ($encoding_list) {
 		if (is_string($encoding_list)) {
 			$encoding_list = strtoupper($encoding_list);
-			$encoding_list = split(', *', $encoding_list);
+			$encoding_list = preg_split('/, */', $encoding_list);
 		}
 		foreach($encoding_list as $encode)
 			if (!array_key_exists($encode, $mbemu_internals['encoding'])) return FALSE;
@@ -66,11 +66,11 @@ if (!(mb_detect_order($mbemu_internals['ini_file']['detect_order'])))
 $mbemu_internals['substitute_character'] = $mbemu_internals['ini_file']['substitute_character'];
 
 $mbemu_internals['regex'] = array(
-	0 => "[\x01-\x7F]", // for ASCII
-	1 => "[\xA1-\xFE]([\xA1-\xFE])|[\x01-\x7F]|\x8E([\xA0-\xDF])", // for EUC-JP
-	2 => "[\x81-\x9F\xE0-\xFC]([\x40-\xFC])|[\x01-\x7F]|[\xA0-\xDF]", // for Shift_JIS
-	3 => "(?:^|\x1B\(\x42)([\x01-\x1A,\x1C-\x7F]*)|(?:\x1B\\$\x42([\x01-\x1A,\x1C-\x7F]*))|(?:\x1B\(I([\x01-\x1A,\x1C-\x7F]*))", // for JIS
-	4 => "[\x01-\x7F]|[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF][\x80-\xBF]", // for UTF-8
+	0 => "[Â¥x01-Â¥x7F]", // for ASCII
+	1 => "[Â¥xA1-Â¥xFE]([Â¥xA1-Â¥xFE])|[Â¥x01-Â¥x7F]|Â¥x8E([Â¥xA0-Â¥xDF])", // for EUC-JP
+	2 => "[Â¥x81-Â¥x9FÂ¥xE0-Â¥xFC]([Â¥x40-Â¥xFC])|[Â¥x01-Â¥x7F]|[Â¥xA0-Â¥xDF]", // for Shift_JIS
+	3 => "(?:^|Â¥x1BÂ¥(Â¥x42)([Â¥x01-Â¥x1A,Â¥x1C-Â¥x7F]*)|(?:Â¥x1BÂ¥Â¥$Â¥x42([Â¥x01-Â¥x1A,Â¥x1C-Â¥x7F]*))|(?:Â¥x1BÂ¥(I([Â¥x01-Â¥x1A,Â¥x1C-Â¥x7F]*))", // for JIS
+	4 => "[Â¥x01-Â¥x7F]|[Â¥xC0-Â¥xDF][Â¥x80-Â¥xBF]|[Â¥xE0-Â¥xEF][Â¥x80-Â¥xBF][Â¥x80-Â¥xBF]", // for UTF-8
 	5 => "..", // for UTF-16
 	6 => "." // for ISO-8859-1
 	);
@@ -241,17 +241,17 @@ function _sjistoeuc(&$str)
 {
 	global $mbemu_internals;
 	
-	$max = preg_match_all('/'.$mbemu_internals['regex'][2].'/', $str, $allchars);  // •¶š‚Ì”z—ñ‚É•ª‰ğ
+	$max = preg_match_all('/'.$mbemu_internals['regex'][2].'/', $str, $allchars);  // æ–‡å­—ã®é…åˆ—ã«åˆ†è§£
 	$str_EUC = '';
 	for ($i = 0; $i < $max; ++$i) {
-		$num = ord($allchars[0][$i]);  // Še•¶š‚Ì1ƒoƒCƒg–Ú‚ğ”’l‚Æ‚µ‚Äæ‚èo‚·
-		if ($num2 = ord($allchars[1][$i])) { // 2ƒoƒCƒg–Ú‚ª‚ ‚éê‡
+		$num = ord($allchars[0][$i]);  // å„æ–‡å­—ã®1ãƒã‚¤ãƒˆç›®ã‚’æ•°å€¤ã¨ã—ã¦å–ã‚Šå‡ºã™
+		if ($num2 = ord($allchars[1][$i])) { // 2ãƒã‚¤ãƒˆç›®ãŒã‚ã‚‹å ´åˆ
 			$shift = $mbemu_internals['sjistoeuc_byte1_shift'][$num2];
 			$str_EUC .= chr($mbemu_internals['sjistoeuc_byte1'][$num] + $shift)
 					   .chr($mbemu_internals['sjistoeuc_byte2'][$shift][$num2]);
-		} elseif ($num <= 0x7F) {//‰p”š
+		} elseif ($num <= 0x7F) {//è‹±æ•°å­—
 			$str_EUC .= chr($num);
-		} else { //”¼ŠpƒJƒi
+		} else { //åŠè§’ã‚«ãƒŠ
 			$str_EUC .= chr(0x8E).chr($num);
 		}
 	}
@@ -262,19 +262,19 @@ function _sjistoeuc(&$str)
 function _euctosjis(&$str)
 {
 	global $mbemu_internals;
-	$max = preg_match_all('/'.$mbemu_internals['regex'][1].'/', $str, $allchars);  // •¶š‚Ì”z—ñ‚É•ª‰ğ
+	$max = preg_match_all('/'.$mbemu_internals['regex'][1].'/', $str, $allchars);  // æ–‡å­—ã®é…åˆ—ã«åˆ†è§£
 	$str_SJIS = '';
 	for ($i = 0; $i < $max; ++$i) {
-		$num = ord($allchars[0][$i]);  // Še•¶š‚Ì1ƒoƒCƒg–Ú‚ğ”’l‚Æ‚µ‚Äæ‚èo‚·
-		if ($num2 = ord($allchars[1][$i])) { // Š¿š‚Ìê‡
+		$num = ord($allchars[0][$i]);  // å„æ–‡å­—ã®1ãƒã‚¤ãƒˆç›®ã‚’æ•°å€¤ã¨ã—ã¦å–ã‚Šå‡ºã™
+		if ($num2 = ord($allchars[1][$i])) { // æ¼¢å­—ã®å ´åˆ
 			$str_SJIS .= chr($mbemu_internals['euctosjis_byte1'][$num]);
 			if ($num & 1)
 				$str_SJIS .= chr($mbemu_internals['euctosjis_byte2'][0][$num2]);
 			else
 				$str_SJIS .= chr($mbemu_internals['euctosjis_byte2'][1][$num2]);
-		} elseif ($num3 = ord($allchars[2][$i])) {//”¼ŠpƒJƒi
+		} elseif ($num3 = ord($allchars[2][$i])) {//åŠè§’ã‚«ãƒŠ
 			$str_SJIS .= chr($num3);
-		} else { //‰p”š
+		} else { //è‹±æ•°å­—
 			$str_SJIS .= chr($num);
 		}
 	}
@@ -285,12 +285,12 @@ function _sjistojis(&$str)
 {
 	global $mbemu_internals;
 	
-	$max = preg_match_all('/'.$mbemu_internals['regex'][2].'/', $str, $allchars);  // •¶š‚Ì”z—ñ‚É•ª‰ğ
+	$max = preg_match_all('/'.$mbemu_internals['regex'][2].'/', $str, $allchars);  // æ–‡å­—ã®é…åˆ—ã«åˆ†è§£
 	$str_JIS = '';
-	$mode = 0; // ‰p”
+	$mode = 0; // è‹±æ•°
 	for ($i = 0; $i < $max; ++$i) {
-		$num = ord($allchars[0][$i]);  // Še•¶š‚Ì1ƒoƒCƒg–Ú‚ğ”’l‚Æ‚µ‚Äæ‚èo‚·
-		if ($num2 = ord($allchars[1][$i])) { // 2ƒoƒCƒg–Ú‚ª‚ ‚éê‡
+		$num = ord($allchars[0][$i]);  // å„æ–‡å­—ã®1ãƒã‚¤ãƒˆç›®ã‚’æ•°å€¤ã¨ã—ã¦å–ã‚Šå‡ºã™
+		if ($num2 = ord($allchars[1][$i])) { // 2ãƒã‚¤ãƒˆç›®ãŒã‚ã‚‹å ´åˆ
 			if ($mode != 1) {
 				$mode = 1;
 				$str_JIS .= chr(0x1b).'$B';
@@ -298,13 +298,13 @@ function _sjistojis(&$str)
 			$shift = $mbemu_internals['sjistoeuc_byte1_shift'][$num2];
 			$str_JIS .= chr(($mbemu_internals['sjistoeuc_byte1'][$num] + $shift) & 0x7F)
 					   .chr($mbemu_internals['sjistoeuc_byte2'][$shift][$num2] & 0x7F);
-		} elseif ($num > 0x80) {//”¼ŠpƒJƒi
+		} elseif ($num > 0x80) {//åŠè§’ã‚«ãƒŠ
 			if ($mode != 2) {
 				$mode = 2;
 				$str_JIS .= chr(0x1B).'(I';
 			}
 			$str_JIS .= chr($num & 0x7F);
-		} else {//”¼Šp‰p”
+		} else {//åŠè§’è‹±æ•°
 			if ($mode != 0) {
 				$mode = 0;
 				$str_JIS .= chr(0x1B).'(B';
@@ -336,15 +336,15 @@ function _jistosjis(&$str)
 {
 	global $mbemu_internals;
 	
-	$max = preg_match_all('/'.$mbemu_internals['regex'][3].'/', $str, $allchunks, PREG_SET_ORDER);  // •¶ší‚²‚Æ‚Ì”z—ñ‚É•ª‰ğ
+	$max = preg_match_all('/'.$mbemu_internals['regex'][3].'/', $str, $allchunks, PREG_SET_ORDER);  // æ–‡å­—ç¨®ã”ã¨ã®é…åˆ—ã«åˆ†è§£
 	$st = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if (ord($allchunks[$i][1])) { //‰p”‚Éƒ}ƒbƒ`
+		if (ord($allchunks[$i][1])) { //è‹±æ•°ã«ãƒãƒƒãƒ
 			$st .= $allchunks[$i][1];
-		} elseif (ord($allchunks[$i][2])) { //Š¿š‚Éƒ}ƒbƒ`
+		} elseif (ord($allchunks[$i][2])) { //æ¼¢å­—ã«ãƒãƒƒãƒ
 			$tmp = substr($allchunks[$i][0], 3, strlen($allchunks[$i][0]));
 			$st .= preg_replace_callback("/.(.)/","_sub_jtosj", $tmp);
-		} elseif (ord($allchunks[$i][3])) { //”¼ŠpƒJƒi‚Éƒ}ƒbƒ`
+		} elseif (ord($allchunks[$i][3])) { //åŠè§’ã‚«ãƒŠã«ãƒãƒƒãƒ
 			$st .= preg_replace("/./e","chr(ord['$1'] | 0x80);",$allchunks[$i][3]);
 		}
 	}
@@ -373,15 +373,15 @@ function _sjistoutf8(&$str)
 	global $mbemu_internals;
 	include_once(dirname(__FILE__).'/sjistouni.table');
 	$st = '';
-	$max = preg_match_all('/'.$mbemu_internals['regex'][2].'/', $str, $allchars);  // •¶š‚Ì”z—ñ‚É•ª‰ğ
+	$max = preg_match_all('/'.$mbemu_internals['regex'][2].'/', $str, $allchars);  // æ–‡å­—ã®é…åˆ—ã«åˆ†è§£
 	for ($i = 0; $i < $max; ++$i) {
-		$num = ord($allchars[0][$i]);  // Še•¶š‚Ì1ƒoƒCƒg–Ú‚ğ”’l‚Æ‚µ‚Äæ‚èo‚·
-		if ($num2 = ord($allchars[1][$i])) { // 2ƒoƒCƒg–Ú‚ª‚ ‚éê‡
+		$num = ord($allchars[0][$i]);  // å„æ–‡å­—ã®1ãƒã‚¤ãƒˆç›®ã‚’æ•°å€¤ã¨ã—ã¦å–ã‚Šå‡ºã™
+		if ($num2 = ord($allchars[1][$i])) { // 2ãƒã‚¤ãƒˆç›®ãŒã‚ã‚‹å ´åˆ
 			$ucs2 = $mbemu_internals['sjistoucs2'][($num << 8) | $num2];
 			$st .= _ucs2utf8($ucs2);
-		} elseif ($num > 0x80) {//”¼ŠpƒJƒi
+		} elseif ($num > 0x80) {//åŠè§’ã‚«ãƒŠ
 			$st .= _ucs2utf8(0xfec0 + $num);
-		} else {//”¼Šp‰p”
+		} else {//åŠè§’è‹±æ•°
 			$st .= chr($num);
 		}
 	}
@@ -408,9 +408,9 @@ function _utf8tosjis(&$str)
 	global $mbemu_internals;
 	include_once(dirname(__FILE__).'/unitosjis.table');
 	$st = '';
-	$max = preg_match_all('/'.$mbemu_internals['regex'][4].'/', $str, $allchars);  // •¶š‚Ì”z—ñ‚É•ª‰ğ
+	$max = preg_match_all('/'.$mbemu_internals['regex'][4].'/', $str, $allchars);  // æ–‡å­—ã®é…åˆ—ã«åˆ†è§£
 	for ($i = 0; $i < $max; ++$i) {
-		$num = _utf8ucs2($allchars[0][$i]); //ucs2‚Ì’l‚ğæ‚èo‚·
+		$num = _utf8ucs2($allchars[0][$i]); //ucs2ã®å€¤ã‚’å–ã‚Šå‡ºã™
 		if ($num < 0x80)
 			$st .= chr($num);
 		elseif ((0xff61 <= $num) && ($num <= 0xff9f))
@@ -428,10 +428,10 @@ function _euctoutf8(&$str)
 	global $mbemu_internals;
 	include_once(dirname(__FILE__).'/sjistouni.table');
 	$st = '';
-	$max = preg_match_all('/'.$mbemu_internals['regex'][1].'/', $str, $allchars);  // •¶š‚Ì”z—ñ‚É•ª‰ğ
+	$max = preg_match_all('/'.$mbemu_internals['regex'][1].'/', $str, $allchars);  // æ–‡å­—ã®é…åˆ—ã«åˆ†è§£
 	for ($i = 0; $i < $max; ++$i) {
-		$num = ord($allchars[0][$i]);  // Še•¶š‚Ì1ƒoƒCƒg–Ú‚ğ”’l‚Æ‚µ‚Äæ‚èo‚·
-		if ($num2 = ord($allchars[1][$i])) { // 2ƒoƒCƒg–Ú‚ª‚ ‚éê‡
+		$num = ord($allchars[0][$i]);  // å„æ–‡å­—ã®1ãƒã‚¤ãƒˆç›®ã‚’æ•°å€¤ã¨ã—ã¦å–ã‚Šå‡ºã™
+		if ($num2 = ord($allchars[1][$i])) { // 2ãƒã‚¤ãƒˆç›®ãŒã‚ã‚‹å ´åˆ
 			if ($num & 1)
 				$sjis = ($mbemu_internals['euctosjis_byte1'][$num] << 8) | $mbemu_internals['euctosjis_byte2'][0][$num2];
 			else
@@ -439,7 +439,7 @@ function _euctoutf8(&$str)
 			$st .= _ucs2utf8($mbemu_internals['sjistoucs2'][$sjis]);
 		} elseif ($num3 = ord($allchars[2][$i])) {
 			$st .= _ucs2utf8(0xfec0 + $num3);
-		} else {//”¼Šp‰p”
+		} else {//åŠè§’è‹±æ•°
 			$st .= chr($num);
 		}
 	}
@@ -451,12 +451,12 @@ function _utf8toeuc(&$str)
 	global $mbemu_internals;
 	include_once(dirname(__FILE__).'/unitosjis.table');
 	$st = '';
-	$max = preg_match_all('/'.$mbemu_internals['regex'][4].'/', $str, $allchars);  // •¶š‚Ì”z—ñ‚É•ª‰ğ
+	$max = preg_match_all('/'.$mbemu_internals['regex'][4].'/', $str, $allchars);  // æ–‡å­—ã®é…åˆ—ã«åˆ†è§£
 	for ($i = 0; $i < $max; ++$i) {
-		$num = _utf8ucs2($allchars[0][$i]); //ucs2‚Ì’l‚ğæ‚èo‚·
+		$num = _utf8ucs2($allchars[0][$i]); //ucs2ã®å€¤ã‚’å–ã‚Šå‡ºã™
 		if ($num < 0x80)
 			$st .= chr($num);
-		elseif ((0xff61 <= $num) && ($num <= 0xff9f)) //”¼ŠpƒJƒi
+		elseif ((0xff61 <= $num) && ($num <= 0xff9f)) //åŠè§’ã‚«ãƒŠ
 			$st .= chr(0x8e) . chr($num - 0xfec0);
 		else {
 			$sjis = $mbemu_internals['ucs2tosjis'][$num];
@@ -474,9 +474,9 @@ function _utf8toutf16(&$str)
 {
 	global $mbemu_internals;
 	$st = '';
-	$max = preg_match_all('/'.$mbemu_internals['regex'][4].'/', $str, $allchars);  // •¶š‚Ì”z—ñ‚É•ª‰ğ
+	$max = preg_match_all('/'.$mbemu_internals['regex'][4].'/', $str, $allchars);  // æ–‡å­—ã®é…åˆ—ã«åˆ†è§£
 	for ($i = 0; $i < $max; ++$i) {
-		$num = _utf8ucs2($allchars[0][$i]); //ucs2‚Ì’l‚ğæ‚èo‚·
+		$num = _utf8ucs2($allchars[0][$i]); //ucs2ã®å€¤ã‚’å–ã‚Šå‡ºã™
 		$st .= chr(($num >> 8) & 0xff).chr($num & 0xff);
 	}
 	return $st;
@@ -497,11 +497,11 @@ function _utf16toutf8(&$str)
 function sub_zenhan_EUC(&$str, $match) {
 	global $mbemu_internals;
 
-	$match = $match . "|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
+	$match = $match . "|[Â¥xa1-Â¥xfe][Â¥xa1-Â¥xfe]|[Â¥x01-Â¥x7f]|Â¥x8e[Â¥xa0-Â¥xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if ($num = ord($chars[1][$i])) //‘SŠp‚Éƒ}ƒbƒ`ƒ“ƒO‚µ‚½ê‡
+		if ($num = ord($chars[1][$i])) //å…¨è§’ã«ãƒãƒƒãƒãƒ³ã‚°ã—ãŸå ´åˆ
 			$str .= chr(array_search($chars[1][$i], $mbemu_internals['alphanumeric_convert']));
 		//	$str .= chr($num & 0x7F);
 		else
@@ -512,11 +512,11 @@ function sub_zenhan_EUC(&$str, $match) {
 function sub_hanzen_EUC(&$str, $match) {
 	global $mbemu_internals;
 
-	$match = $match . "|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
+	$match = $match . "|[Â¥xa1-Â¥xfe][Â¥xa1-Â¥xfe]|[Â¥x01-Â¥x7f]|Â¥x8e[Â¥xa0-Â¥xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if ($num = ord($chars[1][$i])) //”¼Šp‚Éƒ}ƒbƒ`ƒ“ƒO‚µ‚½ê‡
+		if ($num = ord($chars[1][$i])) //åŠè§’ã«ãƒãƒƒãƒãƒ³ã‚°ã—ãŸå ´åˆ
 			$str .= $mbemu_internals['alphanumeric_convert'][$num];
 		else
 			$str .= $chars[0][$i];
@@ -524,49 +524,49 @@ function sub_hanzen_EUC(&$str, $match) {
 }
 
 function alpha_zenhan_EUC(&$str) {
-	sub_zenhan_EUC($str, "(\xA3[\xC1-\xFA])");
+	sub_zenhan_EUC($str, "(Â¥xA3[Â¥xC1-Â¥xFA])");
 }
 
 function alpha_hanzen_EUC(&$str) {
-	sub_hanzen_EUC($str, "([\x41-\x5A,\x61-\x7A])");
+	sub_hanzen_EUC($str, "([Â¥x41-Â¥x5A,Â¥x61-Â¥x7A])");
 }
 
 
 function num_zenhan_EUC(&$str) {
-	sub_zenhan_EUC($str, "(\xA3[\xB0-\xB9])");
+	sub_zenhan_EUC($str, "(Â¥xA3[Â¥xB0-Â¥xB9])");
 }
 
 function num_hanzen_EUC(&$str) {
-	sub_hanzen_EUC($str, "([\x30-\x39])");
+	sub_hanzen_EUC($str, "([Â¥x30-Â¥x39])");
 }
 
 function alphanum_zenhan_EUC(&$str) {
-	sub_zenhan_EUC($str, "(\xa1[\xa4,\xa5,\xa7-\xaa,\xb0,\xb2,\xbf,\xc3,\xca,\xcb,\xce-\xd1,\xdc,\xdd,\xe1,\xe3,\xe4,\xf0,\xf3-\xf7]|\xA3[\xC1-\xFA]|\xA3[\xB0-\xB9])");
+	sub_zenhan_EUC($str, "(Â¥xa1[Â¥xa4,Â¥xa5,Â¥xa7-Â¥xaa,Â¥xb0,Â¥xb2,Â¥xbf,Â¥xc3,Â¥xca,Â¥xcb,Â¥xce-Â¥xd1,Â¥xdc,Â¥xdd,Â¥xe1,Â¥xe3,Â¥xe4,Â¥xf0,Â¥xf3-Â¥xf7]|Â¥xA3[Â¥xC1-Â¥xFA]|Â¥xA3[Â¥xB0-Â¥xB9])");
 }
 
 function alphanum_hanzen_EUC(&$str) {
-	sub_hanzen_EUC($str, "([\\\x21,\\\x23-\\\x26,\\\x28-\\\x5B,\\\x5D-\\\x7D])");
+	sub_hanzen_EUC($str, "([Â¥Â¥Â¥x21,Â¥Â¥Â¥x23-Â¥Â¥Â¥x26,Â¥Â¥Â¥x28-Â¥Â¥Â¥x5B,Â¥Â¥Â¥x5D-Â¥Â¥Â¥x7D])");
 }
 
 
 function space_zenhan_EUC(&$str) {
-	sub_zenhan_EUC($str, "(\xA1\xA1)");
+	sub_zenhan_EUC($str, "(Â¥xA1Â¥xA1)");
 }
 
 function space_hanzen_EUC(&$str) {
-	sub_hanzen_EUC($str, "(\x20)");
+	sub_hanzen_EUC($str, "(Â¥x20)");
 }
 
 function katakana_zenhan_EUC(&$str) {
 	global $mbemu_internals;
 
-	$match = "\xa5([\xa1-\xf4])|\xa1([\xa2,\xa3,\xa6,\xab,\xac,\xbc,\xd6,\xd7])|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
+	$match = "Â¥xa5([Â¥xa1-Â¥xf4])|Â¥xa1([Â¥xa2,Â¥xa3,Â¥xa6,Â¥xab,Â¥xac,Â¥xbc,Â¥xd6,Â¥xd7])|[Â¥xa1-Â¥xfe][Â¥xa1-Â¥xfe]|[Â¥x01-Â¥x7f]|Â¥x8e[Â¥xa0-Â¥xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if ($num = ord($chars[1][$i])) //ƒJƒi‚Éƒ}ƒbƒ`ƒ“ƒO‚µ‚½ê‡
+		if ($num = ord($chars[1][$i])) //ã‚«ãƒŠã«ãƒãƒƒãƒãƒ³ã‚°ã—ãŸå ´åˆ
 			$str .= chr(0x8e) . $mbemu_internals['kana_zenhan_convert'][$num];
-		elseif ($num = ord($chars[2][$i])) //”¼Šp•ÏŠ·‰Â”\‚È“Áê•¶š‚Éƒ}ƒbƒ`‚µ‚½ê‡
+		elseif ($num = ord($chars[2][$i])) //åŠè§’å¤‰æ›å¯èƒ½ãªç‰¹æ®Šæ–‡å­—ã«ãƒãƒƒãƒã—ãŸå ´åˆ
 			$str .= chr(0x8e) . $mbemu_internals['special_zenhan_convert'][$num];
 		else
 			$str .= $chars[0][$i];
@@ -576,30 +576,30 @@ function katakana_zenhan_EUC(&$str) {
 function hiragana_zenhan_EUC(&$str) {
 	global $mbemu_internals;
 
-	$match = "\xa4([\xa1-\xf4])|\xa1([\xa2,\xa3,\xa6,\xab,\xac,\xbc,\xd6,\xd7])|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
+	$match = "Â¥xa4([Â¥xa1-Â¥xf4])|Â¥xa1([Â¥xa2,Â¥xa3,Â¥xa6,Â¥xab,Â¥xac,Â¥xbc,Â¥xd6,Â¥xd7])|[Â¥xa1-Â¥xfe][Â¥xa1-Â¥xfe]|[Â¥x01-Â¥x7f]|Â¥x8e[Â¥xa0-Â¥xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if ($num = ord($chars[1][$i])) //‚©‚È‚Éƒ}ƒbƒ`ƒ“ƒO‚µ‚½ê‡
+		if ($num = ord($chars[1][$i])) //ã‹ãªã«ãƒãƒƒãƒãƒ³ã‚°ã—ãŸå ´åˆ
 			$str .= chr(0x8e) . $mbemu_internals['kana_zenhan_convert'][$num];
-		elseif ($num = ord($chars[2][$i])) //”¼Šp•ÏŠ·‰Â”\‚È“Áê•¶š‚Éƒ}ƒbƒ`‚µ‚½ê‡
+		elseif ($num = ord($chars[2][$i])) //åŠè§’å¤‰æ›å¯èƒ½ãªç‰¹æ®Šæ–‡å­—ã«ãƒãƒƒãƒã—ãŸå ´åˆ
 			$str .= chr(0x8e) . $mbemu_internals['special_zenhan_convert'][$num];
 		else
 			$str .= $chars[0][$i];
 	}
 }
 
-function katakana_hanzen1_EUC(&$str) {	//‘÷“_‚Ì“‡‚ğ‚·‚é•û
+function katakana_hanzen1_EUC(&$str) {	//æ¿ç‚¹ã®çµ±åˆã‚’ã™ã‚‹æ–¹
 	global $mbemu_internals;
 
-	$match = "\x8e((?:[\xb3,\xb6-\xc4,\xca-\xce]\x8e\xde)|(?:[\xca-\xce]\x8e\xdf))|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e([\xa1-\xdf])";
-		//‘÷“_‚â”¼‘÷“_‚Íˆê‚Éƒ}ƒbƒ`ƒ“ƒO
+	$match = "Â¥x8e((?:[Â¥xb3,Â¥xb6-Â¥xc4,Â¥xca-Â¥xce]Â¥x8eÂ¥xde)|(?:[Â¥xca-Â¥xce]Â¥x8eÂ¥xdf))|[Â¥xa1-Â¥xfe][Â¥xa1-Â¥xfe]|[Â¥x01-Â¥x7f]|Â¥x8e([Â¥xa1-Â¥xdf])";
+		//æ¿ç‚¹ã‚„åŠæ¿ç‚¹ã¯ä¸€ç·’ã«ãƒãƒƒãƒãƒ³ã‚°
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if ($chars[1][$i]) //‘÷‰¹C”¼‘÷‰¹‚Éƒ}ƒbƒ`ƒ“ƒO‚µ‚½ê‡
+		if ($chars[1][$i]) //æ¿éŸ³ï¼ŒåŠæ¿éŸ³ã«ãƒãƒƒãƒãƒ³ã‚°ã—ãŸå ´åˆ
 			$str .= chr(0xa5).chr(array_search($chars[1][$i], $mbemu_internals['kana_zenhan_convert']));
-		elseif ($chars[2][$i]) //‚»‚Ì‘¼‚Ì”¼ŠpƒJƒi‚Éƒ}ƒbƒ`
+		elseif ($chars[2][$i]) //ãã®ä»–ã®åŠè§’ã‚«ãƒŠã«ãƒãƒƒãƒ
 			if ($num = array_search($chars[2][$i], $mbemu_internals['kana_zenhan_convert']))
 				$str .= chr(0xa5).chr($num);
 			else
@@ -609,17 +609,17 @@ function katakana_hanzen1_EUC(&$str) {	//‘÷“_‚Ì“‡‚ğ‚·‚é•û
 	}
 }
 
-function hiragana_hanzen1_EUC(&$str) {	//‘÷“_‚Ì“‡‚ğ‚·‚é•û
+function hiragana_hanzen1_EUC(&$str) {	//æ¿ç‚¹ã®çµ±åˆã‚’ã™ã‚‹æ–¹
 	global $mbemu_internals;
 
-	$match = "\x8e((?:[\xb6-\xc4,\xca-\xce]\x8e\xde)|(?:[\xca-\xce]\x8e\xdf))|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e([\xa1-\xdf])";
-		//‘÷“_‚â”¼‘÷“_‚Íˆê‚Éƒ}ƒbƒ`ƒ“ƒO
+	$match = "Â¥x8e((?:[Â¥xb6-Â¥xc4,Â¥xca-Â¥xce]Â¥x8eÂ¥xde)|(?:[Â¥xca-Â¥xce]Â¥x8eÂ¥xdf))|[Â¥xa1-Â¥xfe][Â¥xa1-Â¥xfe]|[Â¥x01-Â¥x7f]|Â¥x8e([Â¥xa1-Â¥xdf])";
+		//æ¿ç‚¹ã‚„åŠæ¿ç‚¹ã¯ä¸€ç·’ã«ãƒãƒƒãƒãƒ³ã‚°
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if ($chars[1][$i]) //‘÷‰¹C”¼‘÷‰¹‚Éƒ}ƒbƒ`ƒ“ƒO‚µ‚½ê‡
+		if ($chars[1][$i]) //æ¿éŸ³ï¼ŒåŠæ¿éŸ³ã«ãƒãƒƒãƒãƒ³ã‚°ã—ãŸå ´åˆ
 			$str .= chr(0xa4).chr(array_search($chars[1][$i], $mbemu_internals['kana_zenhan_convert']));
-		elseif ($chars[2][$i]) //‚»‚Ì‘¼‚Ì”¼ŠpƒJƒi‚Éƒ}ƒbƒ`
+		elseif ($chars[2][$i]) //ãã®ä»–ã®åŠè§’ã‚«ãƒŠã«ãƒãƒƒãƒ
 			if ($num = array_search($chars[2][$i], $mbemu_internals['kana_zenhan_convert']))
 				$str .= chr(0xa4).chr($num);
 			else
@@ -629,14 +629,14 @@ function hiragana_hanzen1_EUC(&$str) {	//‘÷“_‚Ì“‡‚ğ‚·‚é•û
 	}
 }
 
-function katakana_hanzen2_EUC(&$str) {	//‘÷“_‚Ì“‡‚ğ‚µ‚È‚¢•û
+function katakana_hanzen2_EUC(&$str) {	//æ¿ç‚¹ã®çµ±åˆã‚’ã—ãªã„æ–¹
 	global $mbemu_internals;
 
-	$match = "[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e([\xa1-\xdf])";
+	$match = "[Â¥xa1-Â¥xfe][Â¥xa1-Â¥xfe]|[Â¥x01-Â¥x7f]|Â¥x8e([Â¥xa1-Â¥xdf])";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if ($chars[1][$i]) //”¼ŠpƒJƒi‚Éƒ}ƒbƒ`
+		if ($chars[1][$i]) //åŠè§’ã‚«ãƒŠã«ãƒãƒƒãƒ
 			if ($num = array_search($chars[1][$i], $mbemu_internals['kana_zenhan_convert']))
 				$str .= chr(0xa5).chr($num);
 			else
@@ -646,14 +646,14 @@ function katakana_hanzen2_EUC(&$str) {	//‘÷“_‚Ì“‡‚ğ‚µ‚È‚¢•û
 	}
 }
 
-function hiragana_hanzen2_EUC(&$str) {	//‘÷“_‚Ì“‡‚ğ‚µ‚È‚¢•û
+function hiragana_hanzen2_EUC(&$str) {	//æ¿ç‚¹ã®çµ±åˆã‚’ã—ãªã„æ–¹
 	global $mbemu_internals;
 
-	$match = "[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e([\xa1-\xdf])";
+	$match = "[Â¥xa1-Â¥xfe][Â¥xa1-Â¥xfe]|[Â¥x01-Â¥x7f]|Â¥x8e([Â¥xa1-Â¥xdf])";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if ($chars[1][$i]) //”¼ŠpƒJƒi‚Éƒ}ƒbƒ`
+		if ($chars[1][$i]) //åŠè§’ã‚«ãƒŠã«ãƒãƒƒãƒ
 			if ($num = array_search($chars[1][$i], $mbemu_internals['kana_zenhan_convert']))
 				$str .= chr(0xa4).chr($num);
 			else
@@ -665,11 +665,11 @@ function hiragana_hanzen2_EUC(&$str) {	//‘÷“_‚Ì“‡‚ğ‚µ‚È‚¢•û
 
 function katakana_hiragana_EUC(&$str) {
 
-	$match = "\xa5([\xa1-\xf3])|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
+	$match = "Â¥xa5([Â¥xa1-Â¥xf3])|[Â¥xa1-Â¥xfe][Â¥xa1-Â¥xfe]|[Â¥x01-Â¥x7f]|Â¥x8e[Â¥xa0-Â¥xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if ($num = ord($chars[1][$i])) //ƒJƒi‚Éƒ}ƒbƒ`ƒ“ƒO‚µ‚½ê‡
+		if ($num = ord($chars[1][$i])) //ã‚«ãƒŠã«ãƒãƒƒãƒãƒ³ã‚°ã—ãŸå ´åˆ
 			$str .= chr(0xa4) . chr($num);
 		else
 			$str .= $chars[0][$i];
@@ -678,11 +678,11 @@ function katakana_hiragana_EUC(&$str) {
 
 function hiragana_katakana_EUC(&$str) {
 
-	$match = "\xa4([\xa1-\xf4])|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
+	$match = "Â¥xa4([Â¥xa1-Â¥xf4])|[Â¥xa1-Â¥xfe][Â¥xa1-Â¥xfe]|[Â¥x01-Â¥x7f]|Â¥x8e[Â¥xa0-Â¥xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
-		if ($num = ord($chars[1][$i])) //ƒJƒi‚Éƒ}ƒbƒ`ƒ“ƒO‚µ‚½ê‡
+		if ($num = ord($chars[1][$i])) //ã‚«ãƒŠã«ãƒãƒƒãƒãƒ³ã‚°ã—ãŸå ´åˆ
 			$str .= chr(0xa5) . chr($num);
 		else
 			$str .= $chars[0][$i];
@@ -743,26 +743,26 @@ function mb_send_mail($to, $subject, $message , $additional_headers='', $additio
 			if (!_check_encoding($message, 3))
 				$message = mb_convert_encoding($message, "iso-2022-jp", mb_internal_encoding());
 			$additional_headers .= 
-			"\r\nMime-Version: 1.0\r\nContent-Type: text/plain; charset=ISO-2022-JP\r\nContent-Transfer-Encoding: 7bit";
+			"Â¥rÂ¥nMime-Version: 1.0Â¥rÂ¥nContent-Type: text/plain; charset=ISO-2022-JPÂ¥rÂ¥nContent-Transfer-Encoding: 7bit";
 			mail($to, $subject, $message, $additional_headers, $additional_parameter);
 			break;
 		case 'en' :
 		case 'English' :
 			$subject =mb_encode_mimeheader($subject, mb_internal_encoding(), 'Q');
-			$message = _sub_encode_base64($message, mb_internal_encoding(), 76 , "\r\n");
+			$message = _sub_encode_base64($message, mb_internal_encoding(), 76 , "Â¥rÂ¥n");
 			$additional_headers .= 
-			"\r\nMime-Version: 1.0\r\nContent-Type: text/plain; charset=".
+			"Â¥rÂ¥nMime-Version: 1.0Â¥rÂ¥nContent-Type: text/plain; charset=".
 			mb_preferred_mime_name(mb_internal_encoding()).
-			"\r\nContent-Transfer-Encoding: BASE64";
+			"Â¥rÂ¥nContent-Transfer-Encoding: BASE64";
 			mail($to, $subject, $message, $additional_headers, $additional_parameter); 
 			break;
 		case 'uni' :
 			$subject =mb_encode_mimeheader($subject, mb_internal_encoding(), 'B');
-			$message = _sub_encode_base64($message, mb_internal_encoding(), 76 , "\r\n");
+			$message = _sub_encode_base64($message, mb_internal_encoding(), 76 , "Â¥rÂ¥n");
 			$additional_headers .= 
-			"\r\nMime-Version: 1.0\r\nContent-Type: text/plain; charset=".
+			"Â¥rÂ¥nMime-Version: 1.0Â¥rÂ¥nContent-Type: text/plain; charset=".
 			mb_preferred_mime_name(mb_internal_encoding()).
-			"\r\nContent-Transfer-Encoding: BASE64";
+			"Â¥rÂ¥nContent-Transfer-Encoding: BASE64";
 			mail($to, $subject, $message, $additional_headers, $additional_parameter); 
 			break;
 	}
@@ -788,7 +788,7 @@ function mb_detect_encoding( $str , $encoding_list = '')
 		if ($encoding_list == 'AUTO') {
 			$encoding_list = mb_detect_order();
 		} else {
-			$encoding_list = split(', *', $encoding_list);
+			$encoding_list = preg_split('/, */', $encoding_list);
 		}
 	}
 	foreach($encoding_list as $encode) {
@@ -1216,14 +1216,14 @@ function mb_preferred_mime_name ($encoding)
 
 function mb_decode_mimeheader($str)
 {
-	$lines = preg_split("/(\r\n|\r|\n)( *)/", $str);
+	$lines = preg_split("/(Â¥rÂ¥n|Â¥r|Â¥n)( *)/", $str);
 	$s = '';
 	foreach ($lines as $line) {
 		if ($line != "") {
-			$line = preg_replace("/<[\w\-+\.]+\@[\w\-+\.]+>/","", $line); //ƒ[ƒ‹EƒAƒhƒŒƒX•”‚ğÁ‚·
-			$matches = preg_split("/=\?([^?]+)\?(B|Q)\?([^?]+)\?=/", $line, -1, PREG_SPLIT_DELIM_CAPTURE);
+			$line = preg_replace("/<[Â¥wÂ¥-+Â¥.]+Â¥@[Â¥wÂ¥-+Â¥.]+>/","", $line); //ãƒ¡ãƒ¼ãƒ«ãƒ»ã‚¢ãƒ‰ãƒ¬ã‚¹éƒ¨ã‚’æ¶ˆã™
+			$matches = preg_split("/=Â¥?([^?]+)Â¥?(B|Q)Â¥?([^?]+)Â¥?=/", $line, -1, PREG_SPLIT_DELIM_CAPTURE);
 			for ($i = 0; $i < count($matches)-1; $i+=4) {
-				if (!preg_match("/^[ \t\r\n]*$/", $matches[$i]))
+				if (!preg_match("/^[ Â¥tÂ¥rÂ¥n]*$/", $matches[$i]))
 					$s .= $matches[$i];
 				if ($matches[$i+2] == 'B')
 					$s .= mb_convert_encoding(base64_decode($matches[$i+3]), 
@@ -1232,7 +1232,7 @@ function mb_decode_mimeheader($str)
 					$s .= mb_convert_encoding(quoted_printable_decode($matches[$i+3]), 
 											mb_internal_encoding(), $matches[$i+1]);
 			}
-			if (!preg_match("/^[ \t\r\n]*$/", $matches[$i]))
+			if (!preg_match("/^[ Â¥tÂ¥rÂ¥n]*$/", $matches[$i]))
 					$s .= $matches[$i];
 		}
 	}
@@ -1267,12 +1267,12 @@ function _sub_quoted_printable_encode($str, $encoding, $maxline, $linefeed)
 			$max = preg_match_all('/'.$mbemu_internals['regex'][$e].'/', $str, $allchars);
 			break;
 		case 3 : //jis
-			$max = preg_match_all('/'.$mbemu_internals['regex'][3].'/', $str, $allchunks, PREG_SET_ORDER);  // •¶ší‚²‚Æ‚Ì”z—ñ‚É•ª‰ğ
-			$st = ''; // quoted printable•ÏŠ·Œã‚Ì•¶š—ñ
-			$len = $maxline;  // ‚»‚Ìs‚É’Ç‰Á‰Â”\‚ÈƒoƒCƒg”
-			$needterminate = FALSE; //ÅŒã‚ÉƒGƒXƒP[ƒvƒV[ƒPƒ“ƒX‚ª•K—v‚©‚Ç‚¤‚©
+			$max = preg_match_all('/'.$mbemu_internals['regex'][3].'/', $str, $allchunks, PREG_SET_ORDER);  // æ–‡å­—ç¨®ã”ã¨ã®é…åˆ—ã«åˆ†è§£
+			$st = ''; // quoted printableå¤‰æ›å¾Œã®æ–‡å­—åˆ—
+			$len = $maxline;  // ãã®è¡Œã«è¿½åŠ å¯èƒ½ãªãƒã‚¤ãƒˆæ•°
+			$needterminate = FALSE; //æœ€å¾Œã«ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ãŒå¿…è¦ã‹ã©ã†ã‹
 			for ($i = 0; $i < $max; ++$i) {
-				if (ord($allchunks[$i][1])) { //‰p”‚Éƒ}ƒbƒ`
+				if (ord($allchunks[$i][1])) { //è‹±æ•°ã«ãƒãƒƒãƒ
 					if ($needterminate) {
 						$st .= '=1B=28B';
 						$len -= 7;
@@ -1288,7 +1288,7 @@ function _sub_quoted_printable_encode($str, $encoding, $maxline, $linefeed)
 						$len -= $l;
 					} 
 					$needterminate = FALSE;
-				} elseif (ord($allchunks[$i][2])) { //Š¿š‚Éƒ}ƒbƒ`
+				} elseif (ord($allchunks[$i][2])) { //æ¼¢å­—ã«ãƒãƒƒãƒ
 					$maxchars = preg_match_all("/../",substr($allchunks[$i][0], 3),$allchars);
 					$tmp = _sub_qponechar($allchars[0][0], $l);
 					if ($len < 14 + $l) {
@@ -1310,7 +1310,7 @@ function _sub_quoted_printable_encode($str, $encoding, $maxline, $linefeed)
 					}
 					$needterminate = TRUE;
 					
-				} elseif (ord($allchunks[$i][3])) { //”¼ŠpƒJƒi‚Éƒ}ƒbƒ`
+				} elseif (ord($allchunks[$i][3])) { //åŠè§’ã‚«ãƒŠã«ãƒãƒƒãƒ
 					$max = preg_match_all("/./",$allchunks[$i][3],$allchars);
 					$tmp = _sub_qponechar($allchars[0][0], $l);
 					if ($len < 14 + $l) {
@@ -1337,8 +1337,8 @@ function _sub_quoted_printable_encode($str, $encoding, $maxline, $linefeed)
 			$st .= $linefeed;
 			return $st;
 	}
-	$st = ''; // quoted printable•ÏŠ·Œã‚Ì•¶š—ñ
-	$len = $maxline;  // ‚»‚Ìs‚É’Ç‰Á‰Â”\‚ÈƒoƒCƒg”
+	$st = ''; // quoted printableå¤‰æ›å¾Œã®æ–‡å­—åˆ—
+	$len = $maxline;  // ãã®è¡Œã«è¿½åŠ å¯èƒ½ãªãƒã‚¤ãƒˆæ•°
 	for ($i = 0; $i < $max; ++$i) {
 		$tmp = _sub_qponechar($allchars[0][$i], $l);
 		if ($l > $len) {
@@ -1366,20 +1366,20 @@ function _sub_encode_base64($str, $encoding, $maxline , $linefeed)
 			$max = preg_match_all('/'.$mbemu_internals['regex'][$e].'/', $str, $allchars);
 			break;
 		case 3 : //jis
-			$max = preg_match_all('/'.$mbemu_internals['regex'][3].'/', $str, $allchunks);  // •¶ší‚²‚Æ‚Ì”z—ñ‚É•ª‰ğ
-			$st = ''; // BASE64•ÏŠ·Œã‚Ì•¶š—ñ
-			$maxbytes = floor($maxline * 3 / 4);  //1s‚É•ÏŠ·‰Â”\‚ÈƒoƒCƒg”
-			$len = $maxbytes;  // ‚»‚Ìs‚É’Ç‰Á‰Â”\‚ÈƒoƒCƒg”
-			$line = '';  //1s•ª‚Ì•ÏŠ·‘O‚Ì•¶š—ñ
-			$needterminate = FALSE; //ÅŒã‚ÉƒGƒXƒP[ƒvƒV[ƒPƒ“ƒX‚ª•K—v‚©‚Ç‚¤‚©
+			$max = preg_match_all('/'.$mbemu_internals['regex'][3].'/', $str, $allchunks);  // æ–‡å­—ç¨®ã”ã¨ã®é…åˆ—ã«åˆ†è§£
+			$st = ''; // BASE64å¤‰æ›å¾Œã®æ–‡å­—åˆ—
+			$maxbytes = floor($maxline * 3 / 4);  //1è¡Œã«å¤‰æ›å¯èƒ½ãªãƒã‚¤ãƒˆæ•°
+			$len = $maxbytes;  // ãã®è¡Œã«è¿½åŠ å¯èƒ½ãªãƒã‚¤ãƒˆæ•°
+			$line = '';  //1è¡Œåˆ†ã®å¤‰æ›å‰ã®æ–‡å­—åˆ—
+			$needterminate = FALSE; //æœ€å¾Œã«ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ãŒå¿…è¦ã‹ã©ã†ã‹
 			for ($i = 0; $i < $max; ++$i) {
-				if (ord($allchunks[1][$i])) { //‰p”‚Éƒ}ƒbƒ`
+				if (ord($allchunks[1][$i])) { //è‹±æ•°ã«ãƒãƒƒãƒ
 					if ($needterminate) {
 						$line .= chr(0x1B).'(B';
 						$len -= 3;
 					}
-					$tmpstr = $allchunks[1][$i];  //’Ç‰Á‚·‚é•¶š—ñ
-					$l = strlen($tmpstr);  //’Ç‰Á‚·‚é•¶š—ñ‚Ì’·‚³
+					$tmpstr = $allchunks[1][$i];  //è¿½åŠ ã™ã‚‹æ–‡å­—åˆ—
+					$l = strlen($tmpstr);  //è¿½åŠ ã™ã‚‹æ–‡å­—åˆ—ã®é•·ã•
 					while ($l > $len) {
 						$line .= substr($tmpstr, 0, $len);
 						$st .= base64_encode($line).$linefeed;
@@ -1391,9 +1391,9 @@ function _sub_encode_base64($str, $encoding, $maxline , $linefeed)
 					$line .= $tmpstr;
 					$len -= $l;
 					$needterminate = FALSE;
-				} elseif (ord($allchunks[2][$i])) { //Š¿š‚Éƒ}ƒbƒ`
+				} elseif (ord($allchunks[2][$i])) { //æ¼¢å­—ã«ãƒãƒƒãƒ
 					$tmpstr = substr($allchunks[0][$i], 3);
-					if ($len < 8) { //•¶š‚ğ’Ç‰Á‚·‚é‚Ì‚ÉÅ’á8ƒoƒCƒg•K—v‚È‚Ì‚Å
+					if ($len < 8) { //æ–‡å­—ã‚’è¿½åŠ ã™ã‚‹ã®ã«æœ€ä½8ãƒã‚¤ãƒˆå¿…è¦ãªã®ã§
 						if ($needterminate)
 							$line .= chr(0x1B).'(B';
 						$st .= base64_encode($line).$linefeed;
@@ -1417,9 +1417,9 @@ function _sub_encode_base64($str, $encoding, $maxline , $linefeed)
 					$len -= $l;
 					$needterminate = TRUE;
 					
-				} elseif (ord($allchunks[3][$i])) { //”¼ŠpƒJƒi‚Éƒ}ƒbƒ`
+				} elseif (ord($allchunks[3][$i])) { //åŠè§’ã‚«ãƒŠã«ãƒãƒƒãƒ
 					$tmpstr = $allchunks[3][$i];
-					if ($len < 7) { //•¶š‚ğ’Ç‰Á‚·‚é‚Ì‚ÉÅ’á7ƒoƒCƒg•K—v‚È‚Ì‚Å
+					if ($len < 7) { //æ–‡å­—ã‚’è¿½åŠ ã™ã‚‹ã®ã«æœ€ä½7ãƒã‚¤ãƒˆå¿…è¦ãªã®ã§
 						if ($needterminate)
 							$line .= chr(0x1B).'(B';
 						$st .= base64_encode($line).$linefeed;
@@ -1446,10 +1446,10 @@ function _sub_encode_base64($str, $encoding, $maxline , $linefeed)
 			$st .= base64_encode($line).$linefeed;
 			return $st;
 	}
-	$st = ''; // BASE64•ÏŠ·Œã‚Ì•¶š—ñ
-	$maxbytes = floor($maxline * 3 / 4);  //1s‚É•ÏŠ·‰Â”\‚ÈƒoƒCƒg”
-	$len = $maxbytes;  // ‚»‚Ìs‚É’Ç‰Á‰Â”\‚ÈƒoƒCƒg”
-	$line = '';  //1s•ª‚Ì•ÏŠ·‘O‚Ì•¶š—ñ
+	$st = ''; // BASE64å¤‰æ›å¾Œã®æ–‡å­—åˆ—
+	$maxbytes = floor($maxline * 3 / 4);  //1è¡Œã«å¤‰æ›å¯èƒ½ãªãƒã‚¤ãƒˆæ•°
+	$len = $maxbytes;  // ãã®è¡Œã«è¿½åŠ å¯èƒ½ãªãƒã‚¤ãƒˆæ•°
+	$line = '';  //1è¡Œåˆ†ã®å¤‰æ›å‰ã®æ–‡å­—åˆ—
 	for ($i = 0; $i < $max; ++$i) {
 		$l = strlen($allchars[0][$i]);
 		if ($l > $len) {
@@ -1464,7 +1464,7 @@ function _sub_encode_base64($str, $encoding, $maxline , $linefeed)
 	return $st;
 }
 
-function mb_encode_mimeheader( $str, $encoding = "ISO-2022-JP", $transfer_encoding = "B", $linefeed = "\r\n")
+function mb_encode_mimeheader( $str, $encoding = "ISO-2022-JP", $transfer_encoding = "B", $linefeed = "Â¥rÂ¥n")
 {
 	global $mbemu_internals;
 	if ($transfer_encoding == "b") $transfer_encoding = "B";
@@ -1672,7 +1672,7 @@ function _print_str($str) {
 	foreach($all as $char) {
 		$s .= sprintf(" %2X",$char);
 	}
-	print $s."\n";
+	print $s."Â¥n";
 }
 
 ?>

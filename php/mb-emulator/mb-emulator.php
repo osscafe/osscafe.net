@@ -1,10 +1,9 @@
 <?php
-/* mbstring emulator for Japanese by Andy
- * email : webmaster@matsubarafamily.com
- *
+/* mbstring emulator for Japanese
  * license based on GPL(GNU General Public License)
  *
- * Ver.0.84 (2006/1/20)
+ * 2006/01/20 ver.0.84 by Andy (webmaster@matsubarafamily.com)
+ * 2012/04/08 modified by cognitom
  */
 
 
@@ -66,11 +65,11 @@ if (!(mb_detect_order($mbemu_internals['ini_file']['detect_order'])))
 $mbemu_internals['substitute_character'] = $mbemu_internals['ini_file']['substitute_character'];
 
 $mbemu_internals['regex'] = array(
-	0 => "[¥x01-¥x7F]", // for ASCII
-	1 => "[¥xA1-¥xFE]([¥xA1-¥xFE])|[¥x01-¥x7F]|¥x8E([¥xA0-¥xDF])", // for EUC-JP
-	2 => "[¥x81-¥x9F¥xE0-¥xFC]([¥x40-¥xFC])|[¥x01-¥x7F]|[¥xA0-¥xDF]", // for Shift_JIS
-	3 => "(?:^|¥x1B¥(¥x42)([¥x01-¥x1A,¥x1C-¥x7F]*)|(?:¥x1B¥¥$¥x42([¥x01-¥x1A,¥x1C-¥x7F]*))|(?:¥x1B¥(I([¥x01-¥x1A,¥x1C-¥x7F]*))", // for JIS
-	4 => "[¥x01-¥x7F]|[¥xC0-¥xDF][¥x80-¥xBF]|[¥xE0-¥xEF][¥x80-¥xBF][¥x80-¥xBF]", // for UTF-8
+	0 => "[\x01-\x7F]", // for ASCII
+	1 => "[\xA1-\xFE]([\xA1-\xFE])|[\x01-\x7F]|\x8E([\xA0-\xDF])", // for EUC-JP
+	2 => "[\x81-\x9F\xE0-\xFC]([\x40-\xFC])|[\x01-\x7F]|[\xA0-\xDF]", // for Shift_JIS
+	3 => "(?:^|\x1B\(\x42)([\x01-\x1A,\x1C-\x7F]*)|(?:\x1B\\$\x42([\x01-\x1A,\x1C-\x7F]*))|(?:\x1B\(I([\x01-\x1A,\x1C-\x7F]*))", // for JIS
+	4 => "[\x01-\x7F]|[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF][\x80-\xBF]", // for UTF-8
 	5 => "..", // for UTF-16
 	6 => "." // for ISO-8859-1
 	);
@@ -497,7 +496,7 @@ function _utf16toutf8(&$str)
 function sub_zenhan_EUC(&$str, $match) {
 	global $mbemu_internals;
 
-	$match = $match . "|[¥xa1-¥xfe][¥xa1-¥xfe]|[¥x01-¥x7f]|¥x8e[¥xa0-¥xdf]";
+	$match = $match . "|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
@@ -512,7 +511,7 @@ function sub_zenhan_EUC(&$str, $match) {
 function sub_hanzen_EUC(&$str, $match) {
 	global $mbemu_internals;
 
-	$match = $match . "|[¥xa1-¥xfe][¥xa1-¥xfe]|[¥x01-¥x7f]|¥x8e[¥xa0-¥xdf]";
+	$match = $match . "|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
@@ -524,43 +523,43 @@ function sub_hanzen_EUC(&$str, $match) {
 }
 
 function alpha_zenhan_EUC(&$str) {
-	sub_zenhan_EUC($str, "(¥xA3[¥xC1-¥xFA])");
+	sub_zenhan_EUC($str, "(\xA3[\xC1-\xFA])");
 }
 
 function alpha_hanzen_EUC(&$str) {
-	sub_hanzen_EUC($str, "([¥x41-¥x5A,¥x61-¥x7A])");
+	sub_hanzen_EUC($str, "([\x41-\x5A,\x61-\x7A])");
 }
 
 
 function num_zenhan_EUC(&$str) {
-	sub_zenhan_EUC($str, "(¥xA3[¥xB0-¥xB9])");
+	sub_zenhan_EUC($str, "(\xA3[\xB0-\xB9])");
 }
 
 function num_hanzen_EUC(&$str) {
-	sub_hanzen_EUC($str, "([¥x30-¥x39])");
+	sub_hanzen_EUC($str, "([\x30-\x39])");
 }
 
 function alphanum_zenhan_EUC(&$str) {
-	sub_zenhan_EUC($str, "(¥xa1[¥xa4,¥xa5,¥xa7-¥xaa,¥xb0,¥xb2,¥xbf,¥xc3,¥xca,¥xcb,¥xce-¥xd1,¥xdc,¥xdd,¥xe1,¥xe3,¥xe4,¥xf0,¥xf3-¥xf7]|¥xA3[¥xC1-¥xFA]|¥xA3[¥xB0-¥xB9])");
+	sub_zenhan_EUC($str, "(\xa1[\xa4,\xa5,\xa7-\xaa,\xb0,\xb2,\xbf,\xc3,\xca,\xcb,\xce-\xd1,\xdc,\xdd,\xe1,\xe3,\xe4,\xf0,\xf3-\xf7]|\xA3[\xC1-\xFA]|\xA3[\xB0-\xB9])");
 }
 
 function alphanum_hanzen_EUC(&$str) {
-	sub_hanzen_EUC($str, "([¥¥¥x21,¥¥¥x23-¥¥¥x26,¥¥¥x28-¥¥¥x5B,¥¥¥x5D-¥¥¥x7D])");
+	sub_hanzen_EUC($str, "([\\\x21,\\\x23-\\\x26,\\\x28-\\\x5B,\\\x5D-\\\x7D])");
 }
 
 
 function space_zenhan_EUC(&$str) {
-	sub_zenhan_EUC($str, "(¥xA1¥xA1)");
+	sub_zenhan_EUC($str, "(\xA1\xA1)");
 }
 
 function space_hanzen_EUC(&$str) {
-	sub_hanzen_EUC($str, "(¥x20)");
+	sub_hanzen_EUC($str, "(\x20)");
 }
 
 function katakana_zenhan_EUC(&$str) {
 	global $mbemu_internals;
 
-	$match = "¥xa5([¥xa1-¥xf4])|¥xa1([¥xa2,¥xa3,¥xa6,¥xab,¥xac,¥xbc,¥xd6,¥xd7])|[¥xa1-¥xfe][¥xa1-¥xfe]|[¥x01-¥x7f]|¥x8e[¥xa0-¥xdf]";
+	$match = "\xa5([\xa1-\xf4])|\xa1([\xa2,\xa3,\xa6,\xab,\xac,\xbc,\xd6,\xd7])|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
@@ -576,7 +575,7 @@ function katakana_zenhan_EUC(&$str) {
 function hiragana_zenhan_EUC(&$str) {
 	global $mbemu_internals;
 
-	$match = "¥xa4([¥xa1-¥xf4])|¥xa1([¥xa2,¥xa3,¥xa6,¥xab,¥xac,¥xbc,¥xd6,¥xd7])|[¥xa1-¥xfe][¥xa1-¥xfe]|[¥x01-¥x7f]|¥x8e[¥xa0-¥xdf]";
+	$match = "\xa4([\xa1-\xf4])|\xa1([\xa2,\xa3,\xa6,\xab,\xac,\xbc,\xd6,\xd7])|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
@@ -592,7 +591,7 @@ function hiragana_zenhan_EUC(&$str) {
 function katakana_hanzen1_EUC(&$str) {	//濁点の統合をする方
 	global $mbemu_internals;
 
-	$match = "¥x8e((?:[¥xb3,¥xb6-¥xc4,¥xca-¥xce]¥x8e¥xde)|(?:[¥xca-¥xce]¥x8e¥xdf))|[¥xa1-¥xfe][¥xa1-¥xfe]|[¥x01-¥x7f]|¥x8e([¥xa1-¥xdf])";
+	$match = "\x8e((?:[\xb3,\xb6-\xc4,\xca-\xce]\x8e\xde)|(?:[\xca-\xce]\x8e\xdf))|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e([\xa1-\xdf])";
 		//濁点や半濁点は一緒にマッチング
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
@@ -612,7 +611,7 @@ function katakana_hanzen1_EUC(&$str) {	//濁点の統合をする方
 function hiragana_hanzen1_EUC(&$str) {	//濁点の統合をする方
 	global $mbemu_internals;
 
-	$match = "¥x8e((?:[¥xb6-¥xc4,¥xca-¥xce]¥x8e¥xde)|(?:[¥xca-¥xce]¥x8e¥xdf))|[¥xa1-¥xfe][¥xa1-¥xfe]|[¥x01-¥x7f]|¥x8e([¥xa1-¥xdf])";
+	$match = "\x8e((?:[\xb6-\xc4,\xca-\xce]\x8e\xde)|(?:[\xca-\xce]\x8e\xdf))|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e([\xa1-\xdf])";
 		//濁点や半濁点は一緒にマッチング
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
@@ -632,7 +631,7 @@ function hiragana_hanzen1_EUC(&$str) {	//濁点の統合をする方
 function katakana_hanzen2_EUC(&$str) {	//濁点の統合をしない方
 	global $mbemu_internals;
 
-	$match = "[¥xa1-¥xfe][¥xa1-¥xfe]|[¥x01-¥x7f]|¥x8e([¥xa1-¥xdf])";
+	$match = "[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e([\xa1-\xdf])";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
@@ -649,7 +648,7 @@ function katakana_hanzen2_EUC(&$str) {	//濁点の統合をしない方
 function hiragana_hanzen2_EUC(&$str) {	//濁点の統合をしない方
 	global $mbemu_internals;
 
-	$match = "[¥xa1-¥xfe][¥xa1-¥xfe]|[¥x01-¥x7f]|¥x8e([¥xa1-¥xdf])";
+	$match = "[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e([\xa1-\xdf])";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
@@ -665,7 +664,7 @@ function hiragana_hanzen2_EUC(&$str) {	//濁点の統合をしない方
 
 function katakana_hiragana_EUC(&$str) {
 
-	$match = "¥xa5([¥xa1-¥xf3])|[¥xa1-¥xfe][¥xa1-¥xfe]|[¥x01-¥x7f]|¥x8e[¥xa0-¥xdf]";
+	$match = "\xa5([\xa1-\xf3])|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
@@ -678,7 +677,7 @@ function katakana_hiragana_EUC(&$str) {
 
 function hiragana_katakana_EUC(&$str) {
 
-	$match = "¥xa4([¥xa1-¥xf4])|[¥xa1-¥xfe][¥xa1-¥xfe]|[¥x01-¥x7f]|¥x8e[¥xa0-¥xdf]";
+	$match = "\xa4([\xa1-\xf4])|[\xa1-\xfe][\xa1-\xfe]|[\x01-\x7f]|\x8e[\xa0-\xdf]";
 	$max = preg_match_all("/$match/", $str, $chars);
 	$str = '';
 	for ($i = 0; $i < $max; ++$i) {
@@ -743,26 +742,26 @@ function mb_send_mail($to, $subject, $message , $additional_headers='', $additio
 			if (!_check_encoding($message, 3))
 				$message = mb_convert_encoding($message, "iso-2022-jp", mb_internal_encoding());
 			$additional_headers .= 
-			"¥r¥nMime-Version: 1.0¥r¥nContent-Type: text/plain; charset=ISO-2022-JP¥r¥nContent-Transfer-Encoding: 7bit";
+			"\r\nMime-Version: 1.0\r\nContent-Type: text/plain; charset=ISO-2022-JP\r\nContent-Transfer-Encoding: 7bit";
 			mail($to, $subject, $message, $additional_headers, $additional_parameter);
 			break;
 		case 'en' :
 		case 'English' :
 			$subject =mb_encode_mimeheader($subject, mb_internal_encoding(), 'Q');
-			$message = _sub_encode_base64($message, mb_internal_encoding(), 76 , "¥r¥n");
+			$message = _sub_encode_base64($message, mb_internal_encoding(), 76 , "\r\n");
 			$additional_headers .= 
-			"¥r¥nMime-Version: 1.0¥r¥nContent-Type: text/plain; charset=".
+			"\r\nMime-Version: 1.0\r\nContent-Type: text/plain; charset=".
 			mb_preferred_mime_name(mb_internal_encoding()).
-			"¥r¥nContent-Transfer-Encoding: BASE64";
+			"\r\nContent-Transfer-Encoding: BASE64";
 			mail($to, $subject, $message, $additional_headers, $additional_parameter); 
 			break;
 		case 'uni' :
 			$subject =mb_encode_mimeheader($subject, mb_internal_encoding(), 'B');
-			$message = _sub_encode_base64($message, mb_internal_encoding(), 76 , "¥r¥n");
+			$message = _sub_encode_base64($message, mb_internal_encoding(), 76 , "\r\n");
 			$additional_headers .= 
-			"¥r¥nMime-Version: 1.0¥r¥nContent-Type: text/plain; charset=".
+			"\r\nMime-Version: 1.0\r\nContent-Type: text/plain; charset=".
 			mb_preferred_mime_name(mb_internal_encoding()).
-			"¥r¥nContent-Transfer-Encoding: BASE64";
+			"\r\nContent-Transfer-Encoding: BASE64";
 			mail($to, $subject, $message, $additional_headers, $additional_parameter); 
 			break;
 	}
@@ -1216,14 +1215,14 @@ function mb_preferred_mime_name ($encoding)
 
 function mb_decode_mimeheader($str)
 {
-	$lines = preg_split("/(¥r¥n|¥r|¥n)( *)/", $str);
+	$lines = preg_split("/(\r\n|\r|\n)( *)/", $str);
 	$s = '';
 	foreach ($lines as $line) {
 		if ($line != "") {
-			$line = preg_replace("/<[¥w¥-+¥.]+¥@[¥w¥-+¥.]+>/","", $line); //メール・アドレス部を消す
-			$matches = preg_split("/=¥?([^?]+)¥?(B|Q)¥?([^?]+)¥?=/", $line, -1, PREG_SPLIT_DELIM_CAPTURE);
+			$line = preg_replace("/<[\w\-+\.]+\@[\w\-+\.]+>/","", $line); //メール・アドレス部を消す
+			$matches = preg_split("/=\?([^?]+)\?(B|Q)\?([^?]+)\?=/", $line, -1, PREG_SPLIT_DELIM_CAPTURE);
 			for ($i = 0; $i < count($matches)-1; $i+=4) {
-				if (!preg_match("/^[ ¥t¥r¥n]*$/", $matches[$i]))
+				if (!preg_match("/^[ \t\r\n]*$/", $matches[$i]))
 					$s .= $matches[$i];
 				if ($matches[$i+2] == 'B')
 					$s .= mb_convert_encoding(base64_decode($matches[$i+3]), 
@@ -1232,7 +1231,7 @@ function mb_decode_mimeheader($str)
 					$s .= mb_convert_encoding(quoted_printable_decode($matches[$i+3]), 
 											mb_internal_encoding(), $matches[$i+1]);
 			}
-			if (!preg_match("/^[ ¥t¥r¥n]*$/", $matches[$i]))
+			if (!preg_match("/^[ \t\r\n]*$/", $matches[$i]))
 					$s .= $matches[$i];
 		}
 	}
@@ -1464,7 +1463,7 @@ function _sub_encode_base64($str, $encoding, $maxline , $linefeed)
 	return $st;
 }
 
-function mb_encode_mimeheader( $str, $encoding = "ISO-2022-JP", $transfer_encoding = "B", $linefeed = "¥r¥n")
+function mb_encode_mimeheader( $str, $encoding = "ISO-2022-JP", $transfer_encoding = "B", $linefeed = "\r\n")
 {
 	global $mbemu_internals;
 	if ($transfer_encoding == "b") $transfer_encoding = "B";
@@ -1672,7 +1671,7 @@ function _print_str($str) {
 	foreach($all as $char) {
 		$s .= sprintf(" %2X",$char);
 	}
-	print $s."¥n";
+	print $s."\n";
 }
 
 ?>

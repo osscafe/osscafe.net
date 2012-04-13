@@ -98,7 +98,8 @@ body>header div.center>nav>a { margin:0 .5em; color:#666; font-weight:bold; text
 #main-content div.featured-event { width:182px; height:284px; background:url(images/featured-event-background.png) no-repeat; padding:25px 28px 10px 196px; position: relative; color:#FFF; float:left; }
 #main-content div.featured-event h3 { font-size:30px; border-bottom:2px solid #FFF; padding-bottom:.2em; margin-bottom:.3em; }
 #main-content div.featured-event h4 { font-size:14px; border-bottom:1px solid #9EB7C1; padding-bottom:.4em; margin-bottom:.7em; }
-#main-content div.featured-event p { color:#FFF; font-size:12px; line-height:1.3em; height:150px; overflow:hidden; }
+#main-content div.featured-event p { color:#FFF; font-size:12px; line-height:15px; height:150px; overflow:hidden; }
+#main-content div.featured-event a { color:#FFF; text-decoration:none; }
 #main-content div.featured-event p.photo { position:absolute; left:30px; top:25px; }
 #main-content div.featured-event p.photo img { width:150px; }
 #main-content ul.events { margin:0 0 15px 450px; padding:88px 0 0 0 ; background:none; border:none; min-height:304px; }

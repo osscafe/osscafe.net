@@ -76,6 +76,7 @@ body>header div.center>nav>a { margin:0 .5em; color:#666; font-weight:bold; text
 /* @group Billboard */
 
 #billboard { padding-top:0; background: url('images/photo.png') top no-repeat, url(images/cloth.png) top #FFF; }
+body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(images/cloth.png) top #FFF;; }
 #billboard div.center { margin:0 auto; width:900px; padding-top:285px; height:200px; }
 #billboard h1.logo,
 #billboard p.lead { display:none }

@@ -20,14 +20,36 @@ class FacebookGateway {
 		
 		$data = array();
 		switch ($type){
-			case 'coming_events': $data = $this->coming_events(); break;
-			case 'featured_events': $data = $this->featured_events(); break;
-			case 'last_20_events': $data = $this->last_20_events(); break;
+			case 'coming_events':
+			case 'featured_events':
+			case 'last_20_events':
+			case 'books': $data = $this->$type(); break;
 		}
 		$json = json_encode($data);
 		//file_put_contents($file, $json);
 		header('Cache-Control: public,max-age=3600');
 		return $json;
+	}
+	
+	public function books(){
+		$url = 'http://librize.com/places/3/feed.atom';
+		$atom = simplexml_load_file($url);
+		$books = array();
+		$n = 0;
+		foreach($atom->{'entry'} as $item){
+			$attr = $item->{'link'}[0]->attributes();
+			$img = $item->{'link'}[1]->attributes();
+			$books[] = array(
+				'title' => (string)$item->title,
+				'url' => (string)$attr['href'],
+				'date' => (string)$item ->published,
+				'image' => preg_replace('|\._SL\d+_\.|', '._SL180_.', (string)$img['href']),
+			);
+			$n++;
+			if (5 <= $n)
+				break;
+		}
+		return $books;
 	}
 	
 	public function coming_events(){
@@ -102,4 +124,42 @@ ________FQL;
 		//$row['picture'] = preg_replace('/_q\.(jpg)$/', '_n.$1', $row['picture']);
 		return $row;
 	}
+}
+
+function convertXmlObjToArr( $obj, &$arr ){
+    $children = $obj->children();
+    $executed = false;
+    foreach ($children as $index => $node){
+        if( array_key_exists( $index, (array) $arr ) ){
+            if(array_key_exists( 0, $arr[$index] ) ){
+                $i = count($arr[$index]);
+                convertXmlObjToArr($node, $arr[$index][$i]);
+            } else {
+                $tmp = $arr[$index];
+                $arr[$index] = array();
+                $arr[$index][0] = $tmp;
+                $i = count($arr[$index]);
+                convertXmlObjToArr($node, $arr[$index][$i]);
+            }
+        } else {
+            $arr[$index] = array();
+            convertXmlObjToArr($node, $arr[$index]);
+        } 
+ 
+        $attributes = $node->attributes();
+        if ( count($attributes) > 0 ) {
+            $arr[$index]['@attributes'] = array();
+            foreach ($attributes as $attr_name => $attr_value){
+                $attr_index = strtolower(trim((string)$attr_name));
+                $arr[$index]['@attributes'][$attr_index] = trim((string)$attr_value);
+            }
+        }
+ 
+        $executed = true;
+    }
+    if(!$executed&&$children->getName()==""){
+        $arr = (String)$obj;
+    } 
+ 
+    return;
 }

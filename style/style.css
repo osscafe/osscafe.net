@@ -1,3 +1,6 @@
+/* @override 
+	http://osscafe.herokuapp.site/style/style.css */
+
 /* @group CSS reset */
 
 a, abbr, acronym, address, applet, article, aside, audio,
@@ -122,6 +125,14 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 #main-content ul.held-events li a span.description { margin-left:1em; color:#999; }
 
 /* @end */
+
+#main-content ul.books { border:0; background:url(images/shelf.png) no-repeat bottom; padding:0 0 32px; text-align:center; }
+#main-content ul.books li { list-style:none; display:inline-block; margin:10px;
+	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
+}
+
 
 /* @end */
 

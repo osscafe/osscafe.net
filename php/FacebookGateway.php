@@ -33,12 +33,13 @@ class FacebookGateway {
 	
 	public function books(){
 		$url = 'http://librize.com/places/3/feed.atom';
+		$max = 5;
 		$atom = simplexml_load_file($url);
 		$books = array();
 		$n = 0;
-		foreach($atom->{'entry'} as $item){
-			$attr = $item->{'link'}[0]->attributes();
-			$img = $item->{'link'}[1]->attributes();
+		foreach($atom->entry as $item){
+			$attr = $item->link[0]->attributes();
+			$img = $item->link[1]->attributes();
 			$books[] = array(
 				'title' => (string)$item->title,
 				'url' => (string)$attr['href'],
@@ -46,7 +47,7 @@ class FacebookGateway {
 				'image' => preg_replace('|\._SL\d+_\.|', '._SL180_.', (string)$img['href']),
 			);
 			$n++;
-			if (5 <= $n)
+			if ($max <= $n)
 				break;
 		}
 		return $books;
@@ -117,8 +118,8 @@ ________FQL;
 	
 	private static function process_event($row){
 		$row['name'] = preg_replace('/^下北沢オープンソースCafe - /', '', $row['name']);
-		$row['date'] = date('M j',$row['start_time']-60*60*13);
-		$row['day'] = date('D',$row['start_time']-60*60*13);
+		$row['date'] = date('M j',$row['start_time']);
+		$row['day'] = date('D',$row['start_time']);
 		$row['description'] = mb_strimwidth($row['description'], 0, 400, '...', 'UTF-8');
 		//$row['thumbnail'] = $row['picture'];
 		//$row['picture'] = preg_replace('/_q\.(jpg)$/', '_n.$1', $row['picture']);

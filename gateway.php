@@ -4,6 +4,7 @@ require_once 'php/fb/facebook.php';
 require_once 'php/FacebookGateway.php';
 if ($_SERVER['HTTP_MB_EMULATOR'] == 'on')
 	require_once 'php/mb-emulator/mb-emulator.php';
+date_default_timezone_set('Asia/Tokyo');
 
 //外部から来る変数
 $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';

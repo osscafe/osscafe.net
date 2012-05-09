@@ -132,6 +132,9 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
 }
+#main-content ul.books li img {
+	height:180px;
+}
 
 
 /* @end */

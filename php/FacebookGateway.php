@@ -31,28 +31,6 @@ class FacebookGateway {
 		return $json;
 	}
 	
-	public function books(){
-		$url = 'http://librize.com/places/3/feed.atom';
-		$max = 5;
-		$atom = simplexml_load_file($url);
-		$books = array();
-		$n = 0;
-		foreach($atom->entry as $item){
-			$attr = $item->link[0]->attributes();
-			$img = $item->link[1]->attributes();
-			$books[] = array(
-				'title' => (string)$item->title,
-				'url' => (string)$attr['href'],
-				'date' => (string)$item ->published,
-				'image' => preg_replace('|\._SL\d+_\.|', '._SL180_.', (string)$img['href']),
-			);
-			$n++;
-			if ($max <= $n)
-				break;
-		}
-		return $books;
-	}
-	
 	public function coming_events(){
 		$yesterday = time()-60*60*24;
 		$fql = <<<________FQL

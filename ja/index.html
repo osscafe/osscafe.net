@@ -47,7 +47,7 @@
 	<h2>Open source, Design, HTML, Ruby, PHP, databases, ...etc.</h2>
 	<ul class="books">
 		<!--{book in ajax.books}-->
-		<li><a href="#{book.url}"><img src="#{book.image}" alt="#{book.title}" /></a></li>
+		<li><a href="#{book.url}" title="#{book.title}"><img src="#{book.image|default:../style/images/book-no-image.png}" alt="カバー画像" /></a></li>
 		<!--{end}-->
 	</ul>
 	<p class="detail-link"><a href="http://librize.com/places/3/place_items">&raquo; Library</a></p>

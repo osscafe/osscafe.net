@@ -124,17 +124,37 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 #main-content ul.held-events li a span.date { position:absolute; left:70px; top:10px; font-size:16px; font-weight:bold; line-height:24px; color:#366779; }
 #main-content ul.held-events li a span.description { margin-left:1em; color:#999; }
 
+#main-content ul.photos.instagram { padding:0; background:none; border:none; }
+#main-content ul.photos.instagram li { list-style: none; margin:0; padding:0; display:inline-block; }
+#main-content ul.photos.instagram li img { width:145px; }
+
+
 /* @end */
 
-#main-content ul.books { border:0; background:url(images/shelf.png) no-repeat bottom; padding:0 0 32px; text-align:center; }
-#main-content ul.books li { list-style:none; display:inline-block; margin:10px;
+#main-content ul.books { border:0; background:url(images/shelf.png) no-repeat bottom; padding:0 0 35px; text-align:center; }
+#main-content ul.books li {
+	list-style:none; display:inline-block; margin:10px;
 	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
 	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
+	height:180px; background:rgba(240,240,240,.9);
+	line-height:1em;
+	max-width:150px; overflow: hidden;
+	position:relative;
 }
 #main-content ul.books li img {
 	height:180px;
 }
+/*
+#main-content ul.books li img::before {
+	content: "no image";
+	position:absolute;
+	left:0; top:0;
+}
+#main-content ul.books li img[src|=http]:before {
+	content: "";
+}
+*/
 
 
 /* @end */

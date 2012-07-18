@@ -12,8 +12,6 @@
 	<meta property="og:site_name" content="下北沢オープンソースCafe" />
 	<meta property="og:image" content="http://www.osscafe.net/style/images/osscafe.png" />
 	
-	<meta name="ajax.coming_events" content="../gateway.php?type=coming_events" />
-	<meta name="ajax.featured_events" content="../gateway.php?type=featured_events" />
 	<meta name="ajax.calendar" content="../gateway.php?type=calendar" />
 	<meta name="ajax.last_20_events" content="../gateway.php?type=last_20_events" />
 	<meta name="yinyang:selfload" content="true" />
@@ -25,20 +23,6 @@
 <body>
 	<h1>Meetups</h1>
 	<p>OSSCafeでは、さまざまなイベントが開催されています。<br />Jelly!に、オープンソースの勉強会、プロジェクトのmeetup。<br />イベントの企画がある場合は、お気軽に相談下さい。</p>
-	<h2>Upcoming!</h2>
-	<div class="featured-event upcoming">
-		<!--{event in ajax.featured_events}-->
-		<h3><!--{event.date}-->Feb 11<!--{end}-->, <!--{event.day}-->SAT<!--{end}--></h3>
-		<h4><a href="https://www.facebook.com/events/#{event.eid}/"><!--{event.name}-->2/11 Just Do(土) It. in 下北沢<!--{end}--></a></h4>
-		<p><!--{event.description|truncate:155}-->土曜日の朝から集まって、夜までいつもやらないタスクをやろうぜ！の集まりです。...<!--{end}--> <a href="https://www.facebook.com/events/#{event.eid}/">&gt;&gt;詳しく</a></p>
-		<p class="photo"><a href="https://www.facebook.com/events/#{event.eid}/"><img src="#{event.pic_big}" /></a></p>
-		<!--{end}-->
-	</div>
-	<ul class="events upcoming">
-		<!--{event in ajax.coming_events}-->
-		<li><a href="https://www.facebook.com/events/#{event.eid}/" title="#{event.description}"><img src="#{event.pic_small}" alt="" width="50" height="50" /><span><!--{event.date}-->Feb 13<!--{end}--></span><!--{event.name}-->concrete5東京勉強会 第3回 - テーマとカスタムテンプレート<!--{end}--></a></li>
-		<!--{end}-->
-	</ul>
 	<h2>Calendar</h2>
 	<div>
 		<table class="calendar">

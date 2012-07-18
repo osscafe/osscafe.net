@@ -174,7 +174,7 @@ table.calendar tbody td {
 	border: 3px solid #DDD;
 	width:14%;
 	position: relative;
-	padding:40px 2px 10px;
+	padding:5px 2px 10px;
 }
 table.calendar tbody td:hover {
 	background: #EBF0F2;
@@ -183,8 +183,9 @@ table.calendar tbody td.today {
 	background: #EBF0F2 url(images/today.png) top right no-repeat;
 }
 table.calendar tbody td span {
-	position:absolute;
-	top:5px; left:5px;
+	display:block;
+	margin-left:3px;
+	height:35px;
 	font-size:21px;
 	color:#366779;
 	font-weight:bold;

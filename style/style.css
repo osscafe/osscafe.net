@@ -158,6 +158,7 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 
 table.calendar {
 	border-collapse:collapse;
+	margin-bottom:1em;
 }
 table.calendar thead th {
 	border: 3px solid #DDD;

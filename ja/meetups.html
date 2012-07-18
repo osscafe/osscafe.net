@@ -24,35 +24,34 @@
 	<h1>Meetups</h1>
 	<p>OSSCafeでは、さまざまなイベントが開催されています。<br />Jelly!に、オープンソースの勉強会、プロジェクトのmeetup。<br />イベントの企画がある場合は、お気軽に相談下さい。</p>
 	<h2>Calendar</h2>
-	<div>
-		<table class="calendar">
-			<thead>
-				<tr>
-					<th>SUN</th>
-					<th>MON</th>
-					<th>TUE</th>
-					<th>WED</th>
-					<th>THU</th>
-					<th>FRI</th>
-					<th>SAT</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!--{week in ajax.calendar}-->
-				<tr>
-					<!--{day in week.days}-->
-					<td>
-						<span>#{day.date}</span>
-						<!--{event in day.events}-->
-						<a href="https://www.facebook.com/events/#{event.eid}/"><img src="#{event.pic}" alt="" width="50" height="50" />#{event.name}</a>
-						<!--{end}-->
-					</td>
+	<table class="calendar">
+		<thead>
+			<tr>
+				<th>SUN</th>
+				<th>MON</th>
+				<th>TUE</th>
+				<th>WED</th>
+				<th>THU</th>
+				<th>FRI</th>
+				<th>SAT</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--{week in ajax.calendar}-->
+			<tr>
+				<!--{day in week.days}-->
+				<td>
+					<span>#{day.date}</span>
+					<!--{event in day.events}-->
+					<a href="https://www.facebook.com/events/#{event.eid}/"><img src="#{event.pic}" alt="" width="50" height="50" />#{event.name}</a>
 					<!--{end}-->
-				</tr>
+				</td>
 				<!--{end}-->
-			</tbody>
-		</table>
-	</div>
+			</tr>
+			<!--{end}-->
+		</tbody>
+	</table>
+	<p>※金曜定休。ただしイベントが上記設定されている場合はオープンしています。</p>
 	<h2>Last 20 Meetups</h2>
 	<p><img src="../style/images/fig-meetups.jpg" /></p>
 	<ul class="held-events">

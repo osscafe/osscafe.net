@@ -22,6 +22,7 @@ class FacebookGateway {
 		switch ($type){
 			case 'coming_events':
 			case 'featured_events':
+			case 'calendar':
 			case 'last_20_events':
 			case 'books': $data = $this->$type(); break;
 		}
@@ -49,6 +50,49 @@ ________FQL;
 		$data = array();
 		foreach ($result as $row)
 			$data[] = FacebookGateway::process_event($row);
+		return $data;
+	}
+	
+	public function calendar(){
+		$di = getdate();
+		$start_date = mktime(0, 0, 0, $di['mon'], $di['mday'] - $di['wday'], $di['year']);
+		$end_date = $start_date + 60*60*24*7*4;
+		$fql = <<<________FQL
+			SELECT creator, description, eid, end_time, location, name, pic, pic_big, pic_small, start_time
+			FROM event
+			WHERE
+				eid in (
+					SELECT eid 
+					FROM event_member 
+					WHERE uid = 131130253626713 AND $start_date < start_time AND start_time < $end_date)
+				AND privacy = 'OPEN'
+			ORDER BY start_time ASC
+________FQL;
+		$result = $this->connection->api(array('method'=>'fql.query','query'=>$fql));
+		$data = array();
+		for ($i = 0; $i < 4; $i++){
+			$week_data = array();
+			for ($j = 0; $j < 7; $j++) $week_data[] = array(
+				'date' => date('M j', $start_date + ($i*7 + $j) * (60*60*24)),
+				'events' => array(),
+			);
+			$data[] = array(
+				'days' => $week_data,
+			);
+		}
+		foreach ($result as $row){
+			$di2 = getdate($row['start_time']-0);
+			$d2 = mktime(0, 0, 0, $di2['mon'], $di2['mday'], $di2['year']);
+			$d3 = ($d2 - $start_date) / (60*60*24);
+			$wn = floor($d3 / 7); $dn = $d3 % 7;
+			if (isset($data[$wn]['days'][$dn])) $data[$wn]['days'][$dn]['events'][] = array(
+				'eid' => $row['eid'],
+				'name' => preg_replace('/(^下北沢オープンソースCafe - | \(OSSの部室\)$| @下北沢$| \(メンター用\)$)/', '', $row['name']),
+				'date' => date('M j',$row['start_time']),
+				'day' => date('D',$row['start_time']),
+				'pic' => $row['pic'],
+			);
+		}
 		return $data;
 	}
 	

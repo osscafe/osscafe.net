@@ -123,11 +123,9 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 #main-content ul.held-events li a img { position:absolute; left:10px; top:10px; width:24px; height:24px; }
 #main-content ul.held-events li a span.date { position:absolute; left:70px; top:10px; font-size:16px; font-weight:bold; line-height:24px; color:#366779; }
 #main-content ul.held-events li a span.description { margin-left:1em; color:#999; }
-
 #main-content ul.photos.instagram { padding:0; background:none; border:none; }
 #main-content ul.photos.instagram li { list-style: none; margin:0; padding:0; display:inline-block; }
 #main-content ul.photos.instagram li img { width:145px; }
-
 
 /* @end */
 
@@ -156,6 +154,60 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 }
 */
 
+/* @group Calendar */
+
+table.calendar {
+	border-collapse:collapse;
+}
+table.calendar thead th {
+	border: 3px solid #DDD;
+	font-weight:normal;
+	font-size:14px;
+	padding:2px;
+	color:#999;
+}
+table.calendar thead th:first-child {
+	color:#C66;
+}
+table.calendar tbody td {
+	border: 3px solid #DDD;
+	width:14%;
+	position: relative;
+	padding:40px 2px 10px;
+}
+table.calendar tbody td:hover {
+	background: #EBF0F2;
+}
+table.calendar tbody td span {
+	position:absolute;
+	top:5px; left:5px;
+	font-size:21px;
+	color:#366779;
+	font-weight:bold;
+}
+table.calendar tbody tr>td:first-child span {
+	color:#C66;
+}
+table.calendar tbody td a {
+	display: block;
+	font-size:12px;
+	clear:both;
+	padding:4px 0 4px 26px;
+	line-height:1.3em;
+	color:#333;
+	text-decoration:none;
+	border-top: 2px dotted #DDD;
+}
+table.calendar tbody td a:hover {
+	text-decoration:underline;
+}
+table.calendar tbody td a img {
+	float:left;
+	margin-left:-26px;
+	width:24px; height:24px;
+}
+
+/* @end */
 
 /* @end */
 
@@ -186,9 +238,11 @@ body>header div.center>nav>a,
 #main-content p.lead,
 .button,
 body>footer { font-family:"Abril Fatface"; font-weight:normal; }
+table.calendar tbody td span,
 #main-content p.lead,
 #main-content ul.events li span,
 #main-content div.featured-event h3 { font-family:"Raleway"; }
+table.calendar thead th { font-family:"Arial"; }
 
 /* @end */
 

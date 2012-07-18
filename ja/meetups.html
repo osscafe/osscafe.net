@@ -14,6 +14,7 @@
 	
 	<meta name="ajax.coming_events" content="../gateway.php?type=coming_events" />
 	<meta name="ajax.featured_events" content="../gateway.php?type=featured_events" />
+	<meta name="ajax.calendar" content="../gateway.php?type=calendar" />
 	<meta name="ajax.last_20_events" content="../gateway.php?type=last_20_events" />
 	<meta name="yinyang:selfload" content="true" />
 	
@@ -38,6 +39,36 @@
 		<li><a href="https://www.facebook.com/events/#{event.eid}/" title="#{event.description}"><img src="#{event.pic_small}" alt="" width="50" height="50" /><span><!--{event.date}-->Feb 13<!--{end}--></span><!--{event.name}-->concrete5東京勉強会 第3回 - テーマとカスタムテンプレート<!--{end}--></a></li>
 		<!--{end}-->
 	</ul>
+	<h2>Calendar</h2>
+	<div>
+		<table class="calendar">
+			<thead>
+				<tr>
+					<th>SUN</th>
+					<th>MON</th>
+					<th>TUE</th>
+					<th>WED</th>
+					<th>THU</th>
+					<th>FRI</th>
+					<th>SAT</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--{week in ajax.calendar}-->
+				<tr>
+					<!--{day in week.days}-->
+					<td>
+						<span>#{day.date}</span>
+						<!--{event in day.events}-->
+						<a href="https://www.facebook.com/events/#{event.eid}/"><img src="#{event.pic}" alt="" width="50" height="50" />#{event.name}</a>
+						<!--{end}-->
+					</td>
+					<!--{end}-->
+				</tr>
+				<!--{end}-->
+			</tbody>
+		</table>
+	</div>
 	<h2>Last 20 Meetups</h2>
 	<p><img src="../style/images/fig-meetups.jpg" /></p>
 	<ul class="held-events">

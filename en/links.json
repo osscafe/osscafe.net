@@ -1,4 +1,5 @@
 [
 	{"title":"Home", "url":"index.html"},
+	{"title":"Meetups", "url": "meetups.html"},
 	{"title":"Access", "url": "access.html"}
 ]

@@ -179,6 +179,9 @@ table.calendar tbody td {
 table.calendar tbody td:hover {
 	background: #EBF0F2;
 }
+table.calendar tbody td.today {
+	background: #EBF0F2 url(images/today.png) top right no-repeat;
+}
 table.calendar tbody td span {
 	position:absolute;
 	top:5px; left:5px;

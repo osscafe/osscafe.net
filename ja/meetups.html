@@ -19,6 +19,7 @@
 	<link rel="template" href="../style/template.html" />
 	<script src="http://code.jquery.com/jquery-1.7.js"></script>
 	<script src="../js/yinyang.js"></script>
+	<script>YinYang.onvarset('ajax.calendar', function(){ $('table.calendar>tbody>tr:first-child>td:nth-child('+((new Date()).getDay() + 1)+')').addClass('today') });</script>
 </head>
 <body>
 	<h1>Meetups</h1>

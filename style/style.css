@@ -107,11 +107,16 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 #main-content div.featured-event p.photo { position:absolute; left:30px; top:25px; }
 #main-content div.featured-event p.photo img { width:150px; }
 #main-content ul.events { margin:0 0 15px 450px; padding:88px 0 0 0 ; background:none; border:none; min-height:304px; }
-#main-content ul.events li { border-top: 1px dashed #396C81; list-style: none; margin:0; padding:0; }
-#main-content ul.events li a { display:block; position:relative; margin:0; padding:6px 5px 6px 155px; font-size:14px; min-height:50px; text-decoration:none; color:#333; }
-#main-content ul.events li a:hover { background:#EBF0F2; }
-#main-content ul.events li a img { position:absolute; left:10px; }
-#main-content ul.events li a span { position:absolute; left:70px; font-size:22px; font-weight:bold; line-height:50px; color:#366779; }
+#main-content ul.events>li { position:relative; border-top: 1px dashed #396C81; list-style: none; margin:0; padding:0; }
+#main-content ul.events>li>a { display:block; position:relative; margin:0; padding:6px 5px 6px 155px; font-size:14px; min-height:50px; text-decoration:none; color:#333; }
+#main-content ul.events>li>a:hover { background:#EBF0F2; }
+#main-content ul.events>li>a>img { position:absolute; left:10px; }
+#main-content ul.events>li>a>span { position:absolute; left:70px; font-size:22px; font-weight:bold; line-height:50px; color:#366779; }
+#main-content ul.events>li>ul { position:absolute; bottom:5px; left:150px; max-width:290px; height:24px; overflow:hidden; border:none; margin:0; padding:0; background:none; }
+#main-content ul.events>li>ul>li { border:none; padding:0; margin:0 4px 0 0; float:left; list-style:none; }
+#main-content ul.events>li>ul>li>a { padding:0; margin:0; }
+#main-content ul.events>li>ul>li>a:hover { background:none; }
+#main-content ul.events>li>ul>li>a>img { width:24px; padding:0; margin:0; border-radius:4px; }
 
 #main-content div.featured-event.upcoming { margin-top:110px; }
 #main-content ul.events.upcoming { margin-top:40px; }

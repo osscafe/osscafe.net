@@ -21,6 +21,7 @@ class FacebookGateway {
 		$data = array();
 		switch ($type){
 			case 'coming_events':
+			case 'coming_events_with_rspv':
 			case 'featured_events':
 			case 'calendar':
 			case 'last_20_events':
@@ -50,6 +51,54 @@ ________FQL;
 		$data = array();
 		foreach ($result as $row)
 			$data[] = FacebookGateway::process_event($row);
+		return $data;
+	}
+	
+	public function coming_events_with_rspv(){
+		$yesterday = time()-60*60*24;
+		$fql = array();
+		$fql['events'] = <<<________FQL
+			SELECT creator, description, eid, end_time, location, name, pic, pic_big, pic_small, start_time
+			FROM event
+			WHERE
+				eid in (
+					SELECT eid 
+					FROM event_member 
+					WHERE uid = 131130253626713 AND $yesterday < start_time)
+				AND privacy = 'OPEN'
+			ORDER BY start_time
+			LIMIT 1, 5
+________FQL;
+		$fql['map'] = <<<________FQL
+			SELECT eid, uid
+			FROM event_member
+			WHERE
+				rsvp_status IN ("attending", "unsure") AND
+				eid in (SELECT eid FROM #events)
+________FQL;
+		$fql['attendees'] = <<<________FQL
+			SELECT uid, pic_square, profile_url
+			FROM user
+			WHERE uid in (SELECT uid FROM #map)
+________FQL;
+		$results = $this->connection->api(array('method'=>'fql.multiquery','queries'=>$fql));
+		$map = array();
+		$events = array();
+		$attendees = array();
+		foreach ($results as $result)
+			switch ($result['name']) {
+				case 'map': $map = $result['fql_result_set']; break;
+				case 'attendees': foreach ($result['fql_result_set'] as $row) $attendees[$row['uid']] = $row; break;
+				case 'events': foreach ($result['fql_result_set'] as $row) $events[$row['eid']] = FacebookGateway::process_event($row); break;
+			}
+		foreach ($map as $m){
+			$uid = $m['uid']; $eid = $m['eid'];
+			if (!isset($events[$eid]['attendees'])) $events[$eid]['attendees'] = array();
+			$events[$eid]['attendees'][] = $attendees[$uid];
+		}
+		$data = array();
+		foreach ($events as $event)
+			$data[] = $event;
 		return $data;
 	}
 	

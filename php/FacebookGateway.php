@@ -34,7 +34,7 @@ class FacebookGateway {
 	}
 	
 	public function coming_events(){
-		$yesterday = time()-60*60*24;
+		$yesterday = time()-60*60*12;
 		$fql = <<<________FQL
 			SELECT creator, description, eid, end_time, location, name, pic, pic_big, pic_small, start_time
 			FROM event
@@ -55,7 +55,7 @@ ________FQL;
 	}
 	
 	public function coming_events_with_rspv(){
-		$yesterday = time()-60*60*24;
+		$yesterday = time()-60*60*12;
 		$fql = array();
 		$fql['events'] = <<<________FQL
 			SELECT creator, description, eid, end_time, location, name, pic, pic_big, pic_small, start_time
@@ -146,7 +146,7 @@ ________FQL;
 	}
 	
 	public function last_20_events(){
-		$yesterday = time()-60*60*24;
+		$yesterday = time()-60*60*12;
 		$fql = <<<________FQL
 			SELECT creator, description, eid, end_time, location, name, pic, pic_big, pic_small, start_time
 			FROM event
@@ -167,7 +167,7 @@ ________FQL;
 	}
 	
 	public function featured_events(){
-		$yesterday = time()-60*60*24;
+		$yesterday = time()-60*60*12;
 		$fql = <<<________FQL
 			SELECT creator, description, eid, end_time, location, name, pic, pic_big, pic_small, start_time
 			FROM event

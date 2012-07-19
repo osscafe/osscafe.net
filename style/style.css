@@ -112,7 +112,7 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 #main-content ul.events>li>a:hover { background:#EBF0F2; }
 #main-content ul.events>li>a>img { position:absolute; left:10px; }
 #main-content ul.events>li>a>span { position:absolute; left:70px; font-size:22px; font-weight:bold; line-height:50px; color:#366779; }
-#main-content ul.events>li>ul { position:absolute; bottom:5px; left:150px; max-width:290px; height:24px; overflow:hidden; border:none; margin:0; padding:0; background:none; }
+#main-content ul.events>li>ul { position:absolute; bottom:5px; left:155px; max-width:290px; height:24px; overflow:hidden; border:none; margin:0; padding:0; background:none; }
 #main-content ul.events>li>ul>li { border:none; padding:0; margin:0 4px 0 0; float:left; list-style:none; }
 #main-content ul.events>li>ul>li>a { padding:0; margin:0; }
 #main-content ul.events>li>ul>li>a:hover { background:none; }

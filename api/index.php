@@ -4,8 +4,8 @@ date_default_timezone_set('Asia/Tokyo');
 if ($_SERVER['HTTP_MB_EMULATOR'] == 'on')
 	require_once '../php/mb-emulator/mb-emulator.php';
 
-require_once 'Slim/Slim.php';
-require_once 'fb/facebook.php';
+require_once 'library/Slim/Slim.php';
+require_once 'library/fb/facebook.php';
 
 $app = new Slim();
 $facebook = new Facebook(array(
@@ -101,6 +101,9 @@ $app->get('/fb/group/:gid/members.json', function ($gid) use ($facebook) {
 		where uid in (select uid from group_member where gid = $gid)
 ____FQL;
 	$result = $facebook->api(array('method'=>'fql.query','query'=>$fql));
+	if (!sizeof($result)){
+		$result = $facebook->api("/$gid/members");
+	}
     echo json_encode($result);
 });
 

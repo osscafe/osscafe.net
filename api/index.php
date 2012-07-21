@@ -101,9 +101,6 @@ $app->get('/fb/group/:gid/members.json', function ($gid) use ($facebook) {
 		where uid in (select uid from group_member where gid = $gid)
 ____FQL;
 	$result = $facebook->api(array('method'=>'fql.query','query'=>$fql));
-	if (!sizeof($result)){
-		$result = $facebook->api("/$gid/members");
-	}
     echo json_encode($result);
 });
 

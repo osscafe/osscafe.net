@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>CoderDojo Tokyo @下北沢</title>
+	<meta name="keywords" content="CoderDojo" />
+	<meta name="description" content="小中学生のためのプログラミング道場。" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	<meta name="fbgroup" content="https://www.facebook.com/groups/314591185267494/" />
+	<meta name="ajax.members" content="../../api/fb/group/314591185267494/members.json" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/style/images/osscafe.png" />
+	
+	<link rel="template" href="../../style/template.html" />
+	<script src="http://code.jquery.com/jquery-1.7.js"></script>
+	<script src="../../js/yinyang.js"></script>
+</head>
+<body>
+	<h1 class="cover">CoderDojo Tokyo @下北沢</h1>
+	<p><img src="../../images/coderdojo.png" /></p>
+	<p>小中学生のためのプログラミング道場。<br />CoderDojo Tokyoでは、毎週日曜日、ボランティアによるプログラミング道場を開催しています。</p>
+	<h2>プログラミングしよう!</h2>
+	<p>CoderDojo Tokyoでは、毎週日曜日、ボランティアによるプログラミング道場を開催しています。</p>	<ul>
+		<li>Scratch (ブロックで簡単プログラミング)</li>		<li>HTML / CSS / JavaScript</li>		<li>YouTubeなどを活用したWEBサイト作成</li>
+		<li>電子工作と組合わせたプログラミング</li>
+	</ul>	<p>など。その他、参加者の希望に応じます。</p>
+	<h2>メンター＆スタッフ</h2>
+	<p>メンター(先生)は、プログラマやデザイナ、エンジニアなど、ソフトやハードを作ることを専門にしている人たちです。こどものコンピュータ教育に携わる方、会場のOSSCafeの常連ボランティアさん他。詳しくは、<a href="http://tokyo.coderdojo.com/">CoderDojo Tokyoのサイト</a>へ!</p>
+	<ul class="members">
+		<!--{user in ajax.members}--><li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li><!--{end}-->
+	</ul>
+</body>
+</html>

@@ -71,8 +71,8 @@ body>header div.center>nav>a { margin:0 .5em; color:#666; font-weight:bold; text
 #main-content h2.no-margin-top+* { margin-top:88px; }
 #main-content p { color:#555; text-align:justify; line-height:1.6em; margin-bottom:1em; }
 #main-content img.fig { float:left; margin-right:30px }
-#main-content ul { color:#555; padding:1em 2.5em .5em; border: 1px dotted #333; background:#F7F7F7; margin-bottom:1em; }
-#main-content ul ul { background:#FFF; border: 1px dotted #999; margin-top:.5em; padding-top:.5em; padding-bottom:0; }
+#main-content ul { color:#555; padding:1em 2.5em .5em; border: 1px solid #E1DECD; background:#F5F1E6; margin-bottom:1em; border-radius:7px; box-shadow: 0px 1px 3px #999; }
+#main-content ul ul { background:#FFF; border: 1px dotted #999; margin-top:.5em; padding-top:.5em; padding-bottom:0; box-shadow:none; }
 #main-content ul li { margin-bottom:.5em; }
 
 #main-content p.detail-link { margin:0 -10px; background:url(images/detail-link.png) top no-repeat; height:38px; position: relative; }
@@ -85,7 +85,7 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 #billboard div.center { margin:0 auto; width:900px; padding-top:285px; height:200px; }
 #billboard h1.logo,
 #billboard p.lead { display:none }
-#billboard ul.buttons { margin-left:-5px; padding:0; list-style: none; border:none; background:none; }
+#billboard ul.buttons { margin-left:-5px; padding:0; list-style: none; border:none; background:none; box-shadow:none; }
 #billboard ul.buttons li { display: inline-block; margin-right:10px; margin-bottom:0; }	
 .button, .button:visited { background:#366779 url(images/button-overlay.png); display: inline-block; padding: 15px 0 16px; color: #fff; text-decoration: none; -moz-border-radius: 5px; -webkit-border-radius: 5px; -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5); -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5); text-shadow: 0 -1px 1px rgba(0,0,0,0.25); border-bottom: 1px solid rgba(0,0,0,0.25); position: relative; cursor: pointer; text-align: center; width: 198px; font-size: 16px; margin-bottom: 8px }
 .button:hover { background-color:#5297B1; color: #fff }
@@ -108,7 +108,7 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 #main-content div.featured-event a { color:#FFF; text-decoration:none; }
 #main-content div.featured-event p.photo { position:absolute; left:30px; top:25px; }
 #main-content div.featured-event p.photo img { width:150px; }
-#main-content ul.events { margin:0 0 15px 450px; padding:88px 0 0 0 ; background:none; border:none; min-height:304px; }
+#main-content ul.events { margin:0 0 15px 450px; padding:88px 0 0 0 ; background:none; border:none; min-height:304px; box-shadow:none; }
 #main-content ul.events>li { position:relative; border-top: 1px dashed #396C81; list-style: none; margin:0; padding:0; }
 #main-content ul.events>li>a { display:block; position:relative; margin:0; padding:6px 5px 6px 155px; font-size:14px; min-height:50px; text-decoration:none; color:#333; }
 #main-content ul.events>li>a:hover { background:#EBF0F2; }
@@ -123,20 +123,20 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 #main-content div.featured-event.upcoming { margin-top:110px; }
 #main-content ul.events.upcoming { margin-top:40px; }
 
-#main-content ul.held-events { padding:0; background:none; border:none; min-height:304px; }
+#main-content ul.held-events { padding:0; background:none; border:none; min-height:304px;box-shadow:none; }
 #main-content ul.held-events li { border-top: 1px dashed #396C81; list-style: none; margin:0; padding:0 }
 #main-content ul.held-events li a { display:block; position:relative; margin:0; padding:0 5px 0 155px; font-size:14px; height:44px; line-height:44px; text-decoration:none; color:#333; overflow:hidden; }
 #main-content ul.held-events li a:hover { background:#EBF0F2; }
 #main-content ul.held-events li a img { position:absolute; left:10px; top:10px; width:24px; height:24px; }
 #main-content ul.held-events li a span.date { position:absolute; left:70px; top:10px; font-size:16px; font-weight:bold; line-height:24px; color:#366779; }
 #main-content ul.held-events li a span.description { margin-left:1em; color:#999; }
-#main-content ul.photos.instagram { padding:0; background:none; border:none; }
+#main-content ul.photos.instagram { padding:0; background:none; border:none;box-shadow:none; }
 #main-content ul.photos.instagram li { list-style: none; margin:0; padding:0; display:inline-block; }
 #main-content ul.photos.instagram li img { width:145px; }
 
 /* @end */
 
-#main-content ul.books { border:0; background:url(images/shelf.png) no-repeat bottom; padding:0 0 35px; text-align:center; }
+#main-content ul.books { border:0; background:url(images/shelf.png) no-repeat bottom; padding:0 0 35px; text-align:center;box-shadow:none; }
 #main-content ul.books li {
 	list-style:none; display:inline-block; margin:10px;
 	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
@@ -152,7 +152,7 @@ body.en #billboard { background: url('images/photo-en.png') top no-repeat, url(i
 }
 
 
-#main-content ul.members { border:none; background:none; padding:0; line-height:0; }
+#main-content ul.members { border:none; background:none; padding:0; line-height:0;box-shadow:none; }
 #main-content ul.members>li { list-style:none; display:inline-block; padding:0; margin:3px; }
 #main-content ul.members>li>a { display:block; line-height:0; }
 #main-content ul.members>li>a>img { border-radius:3px; }

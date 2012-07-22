@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>電子工作部 - shimokita.make</title>
+	<meta name="keywords" content="PHP, CakePHP" />
+	<meta name="description" content="()" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	<meta name="fbgroup" content="https://www.facebook.com/groups/shimokita.make/" />
+	<meta name="ajax.members" content="../../api/fb/group/448466381844148/members.json" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/style/images/osscafe.png" />
+	
+	<link rel="template" href="../../style/template.html" />
+	<script src="http://code.jquery.com/jquery-1.7.js"></script>
+	<script src="../../js/yinyang.js"></script>
+</head>
+<body>
+	<h1>shimokita.make</h1>
+	<p><img src="../../images/shimokita-make.jpg" /></p>
+	<p>OSSCafeの活動の低レベルな部分を担い、HackerSpace化を目論むグループ。</p>
+	<ul class="members">
+		<!--{user in ajax.members}--><li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li><!--{end}-->
+	</ul>
+	<h2>活動概要</h2>
+	<ul>		<li>Arduinoを活用したものづくり</li>
+		<li>古Macの再生ｗ</li>
+		<li>そのうちAudio工作とかにも手を出したいかも</li>
+		<li>他、電子工作一般</li>
+	</ul>
+</body>
+</html>

@@ -10,6 +10,7 @@ table.calendar tbody td.today { background-image:url(images/today.png) }
 body>footer { background-image: url(images/footer.png) }
 body>footer div.center a.made-in-osscafe { background-image: url(images/made-in-osscafe.png) }
 a.see-my-template { background-image:url(images/label.png) }
+a.github-ribon { background-image:url(images/fork-me.png) }
 
 .github { background-image:url(images/button-overlay.png), url(images/octofication.png) }
 .facebook { background-image:url(images/button-overlay.png), url(images/facebook.png) }

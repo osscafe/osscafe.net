@@ -242,7 +242,7 @@ body>footer div.center a.made-in-osscafe { display:inline-block; width: 320px; h
 
 /* @group Miscellaneous */
 
-img.github-ribon { position: absolute; top: 0; right: 0; border: 0; z-index:99; }
+a.github-ribon { position: absolute; top: 0; right: 0; width:149px; height:149px; border: 0; z-index:99; text-indent:-9999px; }
 a.see-my-template { position:fixed; bottom:100px; right:0; width:85px; height:155px; text-indent:-9999px; }
 span.leader { color:#999; padding-left:2em; }
 

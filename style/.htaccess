@@ -1,4 +1,5 @@
+RedirectMatch 404 embed\-images\.php
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteCond %{QUERY_STRING} inline
-RewriteRule ^ embed-images.php [QSA,L]
+RewriteRule \.css$ embed-images.php [QSA,L]

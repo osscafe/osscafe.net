@@ -40,7 +40,13 @@
 	</div>
 	<ul class="events">
 		<!--{event in ajax.coming_events}-->
-		<li><a href="https://www.facebook.com/events/#{event.eid}/" title="#{event.description}"><img src="#{event.pic_small}" alt="" width="50" height="50" /><span><!--{event.date}-->Feb 13<!--{end}--></span><!--{event.name}-->concrete5東京勉強会 第3回 - テーマとカスタムテンプレート<!--{end}--></a></li>
+		<li><a href="https://www.facebook.com/events/#{event.eid}/" title="#{event.description}"><img src="#{event.pic_small}" alt="" width="50" height="50" /><span><!--{event.date}-->Feb 13<!--{end}--></span><!--{event.name}-->concrete5東京勉強会 第3回 - テーマとカスタムテンプレート<!--{end}--></a>
+			<ul>
+			<!--{user in event.attendees}-->
+				<li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li>
+			<!--{end}-->
+			</ul>
+		</li>
 		<!--{end}-->
 	</ul>
 	<p class="detail-link"><a href="./meetups.html">&raquo; Meetups</a></p>

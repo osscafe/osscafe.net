@@ -2,5 +2,7 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteCond %{QUERY_STRING} inline
 RewriteRule \.css$ embed-images.php [QSA,L]
-#RewriteCond %{ENV:REDIRECT_STATUS} !=200
-#RewriteRule embed-images.php - [F]
+
+# prevent direct access to the script.
+RewriteCond %{REQUEST_URI} embed-images.php
+RewriteRule ^ - [F]

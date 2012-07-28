@@ -1,8 +1,5 @@
 <?php
 date_default_timezone_set('Asia/Tokyo');
-//TODO:mbstringを使えるように、herokuの設定変更。
-if ($_SERVER['HTTP_MB_EMULATOR'] == 'on')
-	require_once '../php/mb-emulator/mb-emulator.php';
 
 require_once 'library/Slim/Slim.php';
 require_once 'library/fb/facebook.php';

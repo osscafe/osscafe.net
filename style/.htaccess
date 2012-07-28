@@ -2,3 +2,9 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteCond %{QUERY_STRING} inline
 RewriteRule \.css$ embed-images.php [QSA,L]
+
+<FilesMatch "embed-images.php">
+Order Deny,Allow
+Deny from All
+Allow from env=REDIRECT_STATUS
+</FilesMatch>

@@ -92,6 +92,96 @@ ____FQL;
 });
 
 /**
+ * トップに表示されるイベント (直近1件目)
+ */
+$app->get('/fb/event/featured.json', function () use ($facebook) {
+	$uid = '131130253626713';
+	$yesterday = time()-60*60*12;
+	$fql = <<<____FQL
+		SELECT description, eid, location, name, pic_big, start_time
+		FROM event
+		WHERE
+			eid in (
+				SELECT eid 
+				FROM event_member 
+				WHERE uid = $uid AND $yesterday < start_time)
+			AND privacy = 'OPEN'
+		ORDER BY start_time ASC
+		LIMIT 1
+____FQL;
+	$result = $facebook->api(array('method'=>'fql.query','query'=>$fql));
+	$data = array();
+	foreach ($result as $row) $data[] = array(
+		'description' => mb_strimwidth($row['description'], 0, 400, '...', 'UTF-8'),
+		'eid' => $row['eid'],
+		'name' => $row['name'],
+		'pic_big' => $row['pic_big'],
+		'date' => date('M j', $row['start_time']),
+		'day' => date('D', $row['start_time']),
+	);
+	echo json_encode($data);
+});
+
+/**
+ * 直近開催のイベント (直近2件目から5件)
+ */
+$app->get('/fb/event/coming.json', function () use ($facebook) {
+	$uid = '131130253626713';
+	$yesterday = time()-60*60*12;
+	$fql = array();
+	$fql['events'] = <<<____FQL
+		SELECT description, eid, name, pic_small, start_time
+		FROM event
+		WHERE
+			eid in (
+				SELECT eid 
+				FROM event_member 
+				WHERE uid = $uid AND $yesterday < start_time)
+			AND privacy = 'OPEN'
+		ORDER BY start_time
+		LIMIT 1, 5
+____FQL;
+	$fql['map'] = <<<____FQL
+		SELECT eid, uid
+		FROM event_member
+		WHERE
+			rsvp_status IN ("attending", "unsure") AND
+			eid in (SELECT eid FROM #events)
+____FQL;
+	$fql['attendees'] = <<<____FQL
+		SELECT uid, pic_square, profile_url
+		FROM user
+		WHERE uid in (SELECT uid FROM #map)
+____FQL;
+	$results = $facebook->api(array('method'=>'fql.multiquery','queries'=>$fql));
+	$map = array();
+	$events = array();
+	$attendees = array();
+	foreach ($results as $result)
+		switch ($result['name']) {
+			case 'map': $map = $result['fql_result_set']; break;
+			case 'attendees': foreach ($result['fql_result_set'] as $row) $attendees[$row['uid']] = $row; break;
+			case 'events': foreach ($result['fql_result_set'] as $row) $events[$row['eid']] = array(
+				'description' => mb_strimwidth($row['description'], 0, 400, '...', 'UTF-8'),
+				'eid' => $row['eid'],
+				'name' => $row['name'],
+				'pic_small' => $row['pic_small'],
+				'date' => date('M j', $row['start_time']),
+				'day' => date('D', $row['start_time']),
+			); break;
+		}
+	foreach ($map as $m){
+		$uid = $m['uid']; $eid = $m['eid'];
+		if (!isset($events[$eid]['attendees'])) $events[$eid]['attendees'] = array();
+		$events[$eid]['attendees'][] = $attendees[$uid];
+	}
+	$data = array();
+	foreach ($events as $event)
+		$data[] = $event;
+	echo json_encode($data);
+});
+
+/**
  * グループのメンバー情報
  */
 $app->get('/fb/group/:gid/members.json', function ($gid) use ($facebook) {

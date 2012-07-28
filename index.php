@@ -1,2 +1,4 @@
 <?php
-header( 'Location: /ja/' ) ;
+/**
+ * KEEP THIS FILE HERE. HEROKU NEED THIS FILE TO DETECT PHP.
+ */

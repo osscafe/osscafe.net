@@ -161,6 +161,7 @@ body.en #billboard { }
 #main-content ul.clubs>li { list-style:none; display:inline-block; padding:0; margin:5px; }
 #main-content ul.clubs>li>a { display:block; line-height:0; }
 #main-content ul.clubs>li>a>img { border-radius:8px; box-shadow: 0px 1px 4px #666; }
+#main-content ul.clubs.small>li>a>img { width:82px; height:82px; border-radius:8px; box-shadow: 0px 1px 4px #666; }
 
 
 

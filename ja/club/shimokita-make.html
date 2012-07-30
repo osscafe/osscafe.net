@@ -8,12 +8,14 @@
 	<meta name="description" content="()" />
 	<meta name="author" content="CogniTom Academic Design" />
 	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
-	<meta name="fbgroup" content="https://www.facebook.com/groups/shimokita.make/" />
-	<meta name="ajax.members" content="../../api/fb/group/448466381844148/members.json" />
-	<meta name="yinyang:selfload" content="true" />
 	
 	<meta property="og:site_name" content="下北沢オープンソースCafe" />
 	<meta property="og:image" content="http://www.osscafe.net/images/164x164/shimokita-make.png" />
+	
+	<meta name="fbgroup" content="https://www.facebook.com/groups/shimokita.make/" />
+	<meta name="ajax.members" content="../../api/fb/group/448466381844148/members.json" />
+	<meta name="hsql.clubs" content="SELECT * FROM /ja/club/" />
+	<meta name="yinyang:selfload" content="true" />
 	
 	<link rel="template" href="../../style/template.html" />
 	<script src="http://code.jquery.com/jquery.min.js"></script>
@@ -31,6 +33,13 @@
 		<li>古Macの再生ｗ</li>
 		<li>そのうちAudio工作とかにも手を出したいかも</li>
 		<li>他、電子工作一般</li>
+	</ul>
+	<h2>部室とプロジェクト</h2>
+	<p>下北沢オープンソースCafeには、他にもいろんなプロジェクトがあります。覗いてみて下さいね :-)</p>
+	<ul class="clubs small">
+		<!--{page in hsql.clubs}-->
+		<li><a href="#{page.file}"><img src="#{page.image}" /></a></li>
+		<!--{end}-->
 	</ul>
 </body>
 </html>

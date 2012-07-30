@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>オープンソースの部室・プロジェクト</title>
+	<meta name="keywords" content="オープンソース, 部室" />
+	<meta name="description" content="オープンソースの部室" />
+	<meta name="author" content="CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/style/images/osscafe.png" />
+	
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	<meta name="hsql.pages" content="SELECT * FROM /ja/club/" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../style/template.html" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="../js/yinyang.js"></script>
+</head>
+<body>
+	<h1>Clubs &amp; Projects</h1>
+	<p>「オープンソースの部室」を始め、多数のプロジェクトが動いています。<br />ぜひ、OSSCafeに来たらどれかに参加してみて下さい :-)</p>
+	<h2>Open Source Activities</h2>
+	<ul class="clubs">
+		<!--{page in hsql.pages}-->
+		<li><a href="club/#{page.file}"><img src="#{page.image}" /></a></li>
+		<!--{end}-->
+	</ul>
+	<p>他にも、いろいろ! 約20くらいのプロジェクトやグループがあるみたい。 (掲載準備中)</p>
+</body>
+</html>

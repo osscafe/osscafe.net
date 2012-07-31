@@ -33,15 +33,15 @@
 	<h2 class="no-margin-top">Jelly!, meetups, schools, and parties! C'mon and join us!</h2>
 	<div class="featured-event">
 		<!--{event in ajax.featured_events}-->
-		<h3><!--{event.date}-->Feb 11<!--{end}-->, <!--{event.day}-->SAT<!--{end}--></h3>
-		<h4><a href="https://www.facebook.com/events/#{event.eid}/"><!--{event.name}-->2/11 Just Do(土) It. in 下北沢<!--{end}--></a></h4>
-		<p><!--{event.description|truncate:155}-->土曜日の朝から集まって、夜までいつもやらないタスクをやろうぜ！の集まりです。...<!--{end}--> <a href="https://www.facebook.com/events/#{event.eid}/">&gt;&gt;詳しく</a></p>
+		<h3>#{event.date}, #{event.day}</h3>
+		<h4><a href="https://www.facebook.com/events/#{event.eid}/">#{event.name}</a></h4>
+		<p>#{event.description|truncate:155} <a href="https://www.facebook.com/events/#{event.eid}/">&gt;&gt;詳しく</a></p>
 		<p class="photo"><a href="https://www.facebook.com/events/#{event.eid}/"><img src="#{event.pic_big}" /></a></p>
 		<!--{end}-->
 	</div>
 	<ul class="events">
 		<!--{event in ajax.coming_events}-->
-		<li><a href="https://www.facebook.com/events/#{event.eid}/" title="#{event.description}"><img src="#{event.pic_small}" alt="" width="50" height="50" /><span><!--{event.date}-->Feb 13<!--{end}--></span><!--{event.name}-->concrete5東京勉強会 第3回 - テーマとカスタムテンプレート<!--{end}--></a>
+		<li><a href="https://www.facebook.com/events/#{event.eid}/" title="#{event.description}"><img src="#{event.pic_small}" alt="" width="50" height="50" /><span>#{event.date}</span>#{event.name}</a>
 			<ul>
 			<!--{user in event.attendees}-->
 				<li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li>

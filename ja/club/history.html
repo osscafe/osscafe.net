@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>歴史部</title>
+	<meta name="keywords" content="concrete5" />
+	<meta name="description" content="concrete5は、オープンソースのブログ／CMS プラットフォーム。「部室」は、そのユーザが集う場所です。" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/images/164x164/history.png" />
+	
+	<meta name="fbgroup" content="https://www.facebook.com/groups/397461403635733/" />
+	<meta name="ajax.members" content="../../api/fb/group/397461403635733/members.json" />
+	<meta name="hsql.clubs" content="SELECT * FROM /ja/club/" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../../style/template.html" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="../../js/yinyang.js"></script>
+</head>
+<body>
+	<h1 class="cover">歴史部</h1>
+	<p><img src="../../images/history.jpg" /></p>
+	<p>歴史部は、戦国と現代をハックする人々の集まりです。</p>
+	<ul class="members">
+		<!--{user in ajax.members}--><li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li><!--{end}-->
+	</ul>
+	<h2>こんな活動をしています</h2>
+	<p>戦国時代を学ぶ人が集まる会です。「戦国コード」が主催しています。</p>
+	<p>”コード”には主に2つの意味があります。</p>
+	<ul>
+		<li>戦国時代の原理、論理をコードに見立てて、それを読み解いたり、書いたりする。</li>
+		<li>戦国時代に関するプログラム（コード）を使ったり、作ったりする。</li>
+	</ul>
+	<h2>お気軽にどうぞ</h2>
+	<p>特に戦国時代に関する前提知識などは想定していません。戦国時代に興味のある方はご参加ください。</p>
+	<p>2週間〜1ヶ月に一度ぐらいの間隔で開催する予定です。詳しいことが決まりましたら、アップしていきます。本などの情報だけではなく、現地に行って学ぶことも多いので、四半期に1度ぐらいはどこかに現地訪問することを考えています。</p>
+	<h2>部室とプロジェクト</h2>
+	<p>下北沢オープンソースCafeには、他にもいろんなプロジェクトがあります。覗いてみて下さいね :-)</p>
+	<ul class="clubs small">
+		<!--{page in hsql.clubs}-->
+		<li><a href="#{page.file}"><img src="#{page.image}" /></a></li>
+		<!--{end}-->
+	</ul>
+</body>
+</html>

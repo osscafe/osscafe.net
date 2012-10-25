@@ -144,12 +144,11 @@ body.en #billboard { }
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
 	height:180px; background:rgba(240,240,240,.9);
 	line-height:1em;
-	max-width:150px; overflow: hidden;
+	max-width:150px; overflow: hidden; min-width:80px;
 	position:relative;
 }
-#main-content ul.books li img {
-	height:180px;
-}
+#main-content ul.books li img { height:180px }
+#main-content ul.books li img[src="no-item-medium-image.jpg"] { display:none; }
 
 
 #main-content ul.members { border:none; background:none; padding:0; line-height:0;box-shadow:none; }

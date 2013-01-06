@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>美術部</title>
+	<meta name="keywords" content="CoderDojo" />
+	<meta name="description" content="作ったり、見に行ったり。モダンアート好き。" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/images/164x164/art.png" />
+	
+	<meta name="fbgroup" content="https://www.facebook.com/groups/464975453554898/" />
+	<meta name="ajax.members" content="../../api/fb/group/464975453554898/members.json?static" />
+	<meta name="hsql.clubs" content="SELECT * FROM /ja/club/" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../../style/template.html" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="../../js/yinyang.js"></script>
+</head>
+<body>
+	<h1>美術部</h1>
+	<p>美術にまつわる知識や技を、皆で楽しみながら深めて行こう！という部活です。</p>
+	<ul class="members">
+		<!--{user in ajax.members}--><li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li><!--{end}-->
+	</ul>
+	<h2>やることは?</h2>	<p>活動内容は、大雑把に...</p>
+	<ul>
+	  <li>色んな作家の作品を分析してみよう! (ちょっと哲学的な観点から、作品を見ると、色んな事が見えてくる...)</li>
+	  <li>作品を美術館やギャラリーに見に行こう!</li>
+	  <li>作品を作ってみよう! (流しそうめんプロジェクトも含め...コラボレーションあり)</li>
+	</ul>
+	<p>日時は、隔週土曜日の午前10時〜を予定しています。</p>
+	<h2>部室とプロジェクト</h2>
+	<p>下北沢オープンソースCafeには、他にもいろんなプロジェクトがあります。覗いてみて下さいね :-)</p>
+	<ul class="clubs small">
+		<!--{page in hsql.clubs}-->
+		<li><a href="#{page.file}"><img src="#{page.image}" /></a></li>
+		<!--{end}-->
+	</ul>
+</body>
+</html>

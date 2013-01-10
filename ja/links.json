@@ -1,7 +1,7 @@
 [
 	{"title":"Home", "url":"index.html"},
 	{"title":"Meetups", "url":"meetups.html"},
-	{"title":"Projects", "url":"clubs.html"},
+	{"title":"Clubs & Projects", "url":"clubs.html"},
 	{"title":"Prices & Menu", "url":"prices.html"},
 	{"title":"Access", "url": "access.html"}
 ]

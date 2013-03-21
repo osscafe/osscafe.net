@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>美術部</title>
+	<meta name="keywords" content="CoderDojo" />
+	<meta name="description" content="作ったり、見に行ったり。モダンアート好き。" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/images/164x164/art.png" />
+	
+	<meta name="fbgroup" content="https://www.facebook.com/groups/464975453554898/" />
+	<meta name="ajax.members" content="../../api/fb/group/464975453554898/members.json?static" />
+	<meta name="hsql.clubs" content="SELECT * FROM /ja/club/" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../../style/template.html" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="../../js/yinyang.js"></script>
+</head>
+<body>
+	<h1>Modern Art Club</h1>
+	<p>Cultivating the skills and knowledge to understand modern art, that's the Modern Art Club</p>
+	<ul class="members">
+		<!--{user in ajax.members}--><li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li><!--{end}-->
+	</ul>
+	<h2>What do we do?</h2>	<p>Our activities, broadly...</p>
+	<ul>
+	  <li>Try analyzing various works by contemporary artists. (Discover new facets of art by examining contemporary works from a philosophical point of view.)</li>
+	  <li>See works of art in museums and galleries!</li>
+	  <li>Try your hand at making art! (For example, collaborate on the Nagashi-somen Project)</li>
+	</ul>
+	<p>The club meets every other week on Saturday at 10 am.</p>
+	<h2>Clubs & Projects</h2>
+	<p>Shimokitazawa Open Source Cafe has many other clubs and projects. Why not check them out! :-)</p>
+	<ul class="clubs small">
+		<!--{page in hsql.clubs}-->
+		<li><a href="#{page.file}"><img src="#{page.image}" /></a></li>
+		<!--{end}-->
+	</ul>
+</body>
+</html>

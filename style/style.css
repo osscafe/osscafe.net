@@ -136,44 +136,36 @@ body.en #billboard { }
 
 /* @end */
 
+/* @group Books */
 #main-content ul.books { border:0; background:no-repeat bottom; padding:0 0 35px; text-align:center;box-shadow:none; }
-#main-content ul.books li {
-	list-style:none; display:inline-block; margin:10px;
-	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
-	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
-	height:180px; background:rgba(240,240,240,.9);
-	line-height:1em;
-	max-width:150px; overflow: hidden; min-width:80px;
-	position:relative;
-}
+#main-content ul.books li { list-style:none; display:inline-block; margin:10px; -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75); -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75); box-shadow: 0 0 5px rgba(0, 0, 0, 0.75); height:180px; background:rgba(240,240,240,.9); line-height:1em; max-width:150px; overflow: hidden; min-width:80px; position:relative }
 #main-content ul.books li img { height:180px }
 #main-content ul.books li img[src="no-item-medium-image.jpg"] { display:none; }
+/* #main-content ul.books li img::before { content: "no image"; position:absolute; left:0; top:0; } */
+/* #main-content ul.books li img[src|=http]:before { content: "" } */
+/* @end */
 
+/* @group Streams */
+#main-content ul.streams { border:0; background:no-repeat bottom; padding:0; text-align:center;box-shadow:none; }
+#main-content ul.streams li { list-style:none; display:inline-block; margin:10px; -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75); -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.75); box-shadow: 0 0 5px rgba(0, 0, 0, 0.75); background:rgba(240,240,240,.9); line-height:1em; overflow: hidden; position:relative; border-radius:8px; line-height:0; }
+#main-content ul.streams li img { width:155px }
+#main-content ul.streams li span { position:absolute; text-align:left; bottom:0; left:0; right:0; line-height:1.3em; color:#FFF; padding:10px 5px 10px 10px; background:rgba(0,0,0,.5); font-size:95%; }
+/* @end */
 
+/* @group Members */
 #main-content ul.members { border:none; background:none; padding:0; line-height:0;box-shadow:none; }
 #main-content ul.members>li { list-style:none; display:inline-block; padding:0; margin:3px; }
 #main-content ul.members>li>a { display:block; line-height:0; }
 #main-content ul.members>li>a>img { border-radius:3px; }
+/* @end */
 
+/* @group Clubs */
 #main-content ul.clubs { border:none; background:none; padding:0; line-height:0;box-shadow:none; }
 #main-content ul.clubs>li { list-style:none; display:inline-block; padding:0; margin:5px; }
 #main-content ul.clubs>li>a { display:block; line-height:0; }
 #main-content ul.clubs>li>a>img { border-radius:8px; box-shadow: 0px 1px 4px #666; }
 #main-content ul.clubs.small>li>a>img { width:82px; height:82px; border-radius:8px; box-shadow: 0px 1px 4px #666; }
-
-
-
-/*
-#main-content ul.books li img::before {
-	content: "no image";
-	position:absolute;
-	left:0; top:0;
-}
-#main-content ul.books li img[src|=http]:before {
-	content: "";
-}
-*/
+/* @end */
 
 /* @group Calendar */
 

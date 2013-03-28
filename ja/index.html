@@ -15,6 +15,7 @@
 	<meta name="ajax.coming_events" content="../api/fb/event/coming.json" />
 	<meta name="ajax.featured_events" content="../api/fb/event/featured.json" />
 	<meta name="ajax.books" content="http://librize.com/places/3/place_items.json?limit=5&height=180&callback=?" />
+	<meta name="ajax.streams" content="../api/livestream/latest.json" />
 	<meta name="hsql.clubs" content="SELECT * FROM /ja/club/" />
 	<meta name="yinyang:selfload" content="true" />
 	
@@ -51,6 +52,14 @@
 		<!--{end}-->
 	</ul>
 	<p class="detail-link"><a href="./meetups.html">&raquo; Meetups</a></p>
+	<h2>Our live broadcasting &amp; video archives. Don't miss it!</h2>
+	<ul class="streams">
+		<!--{stream in ajax.streams}-->
+		<li><a href="https://new.livestream.com/shimokitazawa-osscafe/#{stream.short_name}"><img src="#{stream.logo.small_url}" alt="カバー画像" /><span><!--{stream.full_name}--><!--{end}--></span></a></li>
+		<!--{end}-->
+	</ul>
+	<p>最新の5件を掲載しています。ぜひ、<a href="https://new.livestream.com/shimokitazawa-osscafe">Livestreamのページ</a>もチェックして見てください!</p>
+	<p class="detail-link"><a href="https://new.livestream.com/shimokitazawa-osscafe">&raquo; Livestream</a></p>
 	<h2>Open source, Design, HTML, Ruby, PHP, databases, ...etc.</h2>
 	<ul class="books">
 		<!--{book in ajax.books}-->

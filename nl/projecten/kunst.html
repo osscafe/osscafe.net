@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Moderne Kunst Club</title>
+	<meta name="keywords" content="CoderDojo" />
+	<meta name="description" content="Een club voor diegene die houden van het bekijken/maken van Moderne Kunst" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="OpenSource Cafe" />
+	<meta property="og:image" content="http://www.osscafe.net/images/164x164/art.png" />
+	
+	<meta name="fbgroup" content="https://www.facebook.com/groups/464975453554898/" />
+	<meta name="ajax.members" content="../../api/fb/group/464975453554898/members.json?static" />
+	<meta name="hsql.clubs" content="SELECT * FROM /ja/club/" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../../style/template.html" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="../../js/yinyang.js"></script>
+</head>
+<body>
+	<h1>Moderne Kunst Club</h1>
+	<p>Het cultiveren van de vaardigheden en kennis om moderne kunst te begrijpen, dat is de Moderne Kunst Club</p>
+	<ul class="members">
+		<!--{user in ajax.members}--><li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li><!--{end}-->
+	</ul>
+	<h2>Wat doen we?</h2>
+	<p>Onze Activiteiten, in grote lijnen...</p>
+	<ul>
+	  <li>Proberen de verschillende werken van hedendaagse kunstenaars te analyseren. (Ontdek nieuwe facetten van de kunst door hedendaagse werken vanuit een filosofisch standpunt te onderzoeken.)</li>
+	  <li>Zie kunst in musea's en galerieën</li>
+	  <li>Probeer kunst te maken! (Bijvoorbeeld door samen te werken aan het Nagashi-somen Project)</li>
+	</ul>
+	<p>Onze club komt om de week op Zaterdag om 10:00 uur bijeen </p>
+	<h2>Clubs & Projecten</h2>
+	<p>Shimokitazawa Open Source Cafe heeft velen clubs en projecten. Waarom neem je geen kijkje? :-)</p>
+	<ul class="clubs small">
+		<!--{page in hsql.clubs}-->
+		<li><a href="#{page.file}"><img src="#{page.image}" /></a></li>
+		<!--{end}-->
+	</ul>
+</body>
+</html>

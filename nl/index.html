@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Shimokitazawa OpenSource Cafe</title>
+	<meta name="keywords" content="Shimokitazawa, opensource, cafe, co-working, coworking, Tokyo, Setagaya" />
+	<meta name="description" content="Cafe & Bibliotheek voor Coworking, Open Source Activiteiten, en meer!" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/style/images/osscafe.png" />
+	
+	<meta name="language" content="en" />
+	<meta name="ajax.coming_events" content="../api/fb/event/coming.json" />
+	<meta name="ajax.featured_events" content="../api/fb/event/featured.json" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../style/home.html" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="../js/yinyang.js"></script>
+</head>
+<body>
+	<h1 class="logo">Shimokitazawa OpenSource Cafe</h1>
+	<ul class="buttons">
+		<li><a class="button github" href="https://github.com/osscafe">Fork mij op GitHub</a></li>
+		<li><a class="button facebook" href="https://www.facebook.com/shimokitazawa.osscafe">Facebook</a></li>
+	</ul>
+	<p class="lead">Cafe &amp; Bibliotheek voor Coworking, Open Source Activiteiten, en meer!</p>
+	<hr />
+	<h2 class="no-margin-top">Jelly!, bijeenkomsten, workshops, en feestjes! Kom en doe mee!</h2>
+	<div class="featured-event">
+		<!--{event in ajax.featured_events}-->
+		<h3><!--{event.date}-->Feb 11<!--{end}-->, <!--{event.day}-->SAT<!--{end}--></h3>
+		<h4><a href="https://www.facebook.com/events/#{event.eid}/"><!--{event.name}-->2/11 Just Do(土) It. in 下北沢<!--{end}--></a></h4>
+		<p><!--{event.description|truncate:155}-->土曜日の朝から集まって、夜までいつもやらないタスクをやろうぜ！の集まりです。...<!--{end}--> <a href="https://www.facebook.com/events/#{event.eid}/">&gt;&gt;詳しく</a></p>
+		<p class="photo"><a href="https://www.facebook.com/events/#{event.eid}/"><img src="#{event.pic_big}" /></a></p>
+		<!--{end}-->
+	</div>
+	<ul class="events">
+		<!--{event in ajax.coming_events}-->
+		<li><a href="https://www.facebook.com/events/#{event.eid}/" title="#{event.description}"><img src="#{event.pic_small}" alt="" width="50" height="50" /><span><!--{event.date}-->Feb 13<!--{end}--></span><!--{event.name}-->concrete5東京勉強会 第3回 - テーマとカスタムテンプレート<!--{end}--></a>
+			<ul>
+			<!--{user in event.attendees}-->
+				<li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li>
+			<!--{end}-->
+			</ul>
+		</li>
+		<!--{end}-->
+	</ul>
+	<p class="detail-link"><a href="./meetups.html">&raquo; Meetups</a></p>
+	<h3>Prijzen</h3>
+	<ul>
+		<li>Dagprijs (incl 1 drankje) : &yen;1,000</li>
+		<li>Extra drank : &yen;500</li>
+	</ul>
+	<h3>Drinken</h3>
+	<ul>
+		<li>Warm: Espresso, Koffie, Latte, Zwarte Thee, Chineze Thee</li>
+		<li>Koud: Cider, Appelsap</li>
+	</ul>
+	<h3>Faciliteit</h3>
+	<ul>
+		<li>Sociaal Cafe en bibliotheek ruimte (ook engelse boeken)</li>
+		<li>Gratis Wifi en stroom aansluitingen</li>
+	</ul>
+	<h3>Contacts</h3>
+	<ul>
+		<li>facebook: <a href="https://www.facebook.com/shimokitazawa.osscafe">https://www.facebook.com/shimokitazawa.osscafe</a></li>
+		<li>email: cafe@cognitom.com</li>
+	</ul>
+</body>
+</html>

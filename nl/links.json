@@ -1,0 +1,6 @@
+[
+	{"title":"Home", "url":"index.html"},
+	{"title":"Meetups", "url": "meetups.html"},
+	{"title":"Projecten", "url":"clubs.html"},
+	{"title":"Toegang", "url": "toegang.html"}
+]

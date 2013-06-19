@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>CoderDojo Tokyo @ Shimokitazawa</title>
+	<meta name="keywords" content="CoderDojo" />
+	<meta name="description" content="CoderDojo is een programmeer dojo voor kids!" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/images/164x164/coderdojo.png" />
+	
+	<meta name="fbgroup" content="https://www.facebook.com/groups/314591185267494/" />
+	<meta name="ajax.members" content="../../api/fb/group/314591185267494/members.json?static" />
+	<meta name="hsql.clubs" content="SELECT * FROM /ja/club/" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../../style/template.html" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="../../js/yinyang.js"></script>
+</head>
+<body>
+	<h1 class="cover">CoderDojo Tokyo @下北沢</h1>
+	<p><img src="../../images/coderdojo.png" /></p>
+	<p>CoderDojo is een programmeer dojo voor kids!<br />CoderDojo Tokyo komt elke Zondag bijeen.</p>
+	<ul class="members">
+		<!--{user in ajax.members}--><li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li><!--{end}-->
+	</ul>
+	<h2>Probeer te programmeren!</h2>
+	<ul>
+		<li>Scratch (programmeer met visuele blokken)</li>
+		<li>HTML / CSS / JavaScript</li>
+		<li>Maak je eigen website en gebruik tools zoals YouTube</li>
+		<li>Programmeer met MAKE Kits en andere hardware</li>
+	</ul>
+	<p>...en veel meer , afhankelijk van de interesse!</p>
+	<h2>Mentoren & Personeel</h2>
+	<p>Mentoren kunnen programmeurs, designers, ingenieurs, of iedereen met een interesse in software en hardware. For full details see <a href="http://tokyo.coderdojo.com/">CoderDojo Tokyo</a>!</p>
+	<h2>Clubs & Projecten</h2>
+	<p>Shimokitazawa Open Source Cafe heeft velen clubs en projecten. Waarom neem je geen kijkje? :-)</p>
+	<ul class="clubs small">
+		<!--{page in hsql.clubs}-->
+		<li><a href="#{page.file}"><img src="#{page.image}" /></a></li>
+		<!--{end}-->
+	</ul>
+</body>
+</html>

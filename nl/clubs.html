@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Club ruimtes voor OSS &amp; Projecten</title>
+	<meta name="keywords" content="open source, OSS, club ruimte" />
+	<meta name="description" content="Club rooms voor OSS" />
+	<meta name="author" content="CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="Shimokitazaawa OpenSource Cafe" />
+	<meta property="og:image" content="http://www.osscafe.net/style/images/osscafe.png" />
+	
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	<meta name="hsql.pages" content="SELECT * FROM /en/club/" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../style/template.html" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="../js/yinyang.js"></script>
+</head>
+<body>
+	<h1>Clubs &amp; Projecten</h1>
+	<p>Iedereen is welkom om te participeren in de vele open source projecten en clubs in het OSS Cafe.</p>
+
+	<h2>Open Source Activiteiten</h2>
+	<ul class="clubs">
+		<!--{page in hsql.pages}-->
+		<li><a href="club/#{page.file}"><img src="#{page.image}" /></a></li>
+		<!--{end}-->
+	</ul>
+	<p>...en veel meer!</p>
+</body>
+</html>

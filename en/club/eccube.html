@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>EC-CUBE部 (東京ユーザ会)</title>
+	<meta name="keywords" content="EC-CUBE" />
+	<meta name="description" content="EC-CUBEは日本発のECサイト構築CMSです。" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/images/164x164/eccube.png" />
+	
+	<meta name="fbgroup" content="https://www.facebook.com/groups/283598911686452/" />
+	<meta name="ajax.members" content="../../api/fb/group/283598911686452/members.json" />
+	<meta name="hsql.clubs" content="SELECT * FROM /ja/club/" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../../style/template.html" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="../../js/yinyang.js"></script>
+</head>
+<body>
+	<h1>EC-CUBE Club (Tokyo Users Group)</h1>
+        <p>Let's learn, collaborate, and hack together with EC-CUBE.
+        <br/ >EC-CUBE is one of Japan's most popular e-commerce CMSs. This is the clubroom for EC-CUBE users.</p>
+	<ul class="members">
+		<!--{user in ajax.members}--><li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li><!--{end}-->
+	</ul>
+	<h2>What do we do in the Open Source Clubroom?</h2>
+	<p>Every other week we have a meet up to study and learn about open source. Beginners are welcome to ask questions and veterans are encouraged to help out in any way they can.</p>
+	<ul>
+		<li>Chat and share your experiences with open source.</li>
+		<li>If you're just beginning or feel lost you can ask for help.</li>
+		<li>Get feedback on your open source projects.</li>
+	</ul>
+	<p>The Open Source Clubroom is very open, so use it for things like this or bring your own ideas!</p>
+
+
+	<h2>Clubs & Projects</h2>
+	<p>Shimokitazawa Open Source Cafe has many other clubs and projects. Why not check them out! :-)</p>
+	<ul class="clubs small">
+		<!--{page in hsql.clubs}-->
+		<li><a href="#{page.file}"><img src="#{page.image}" /></a></li>
+		<!--{end}-->
+	</ul>
+</body>
+</html>

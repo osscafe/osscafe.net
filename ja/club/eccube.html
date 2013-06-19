@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>EC-CUBE部 (東京ユーザ会)</title>
+	<meta name="keywords" content="EC-CUBE" />
+	<meta name="description" content="EC-CUBEは日本発のECサイト構築CMSです。" />
+	<meta name="author" content="CogniTom Academic Design" />
+	<meta name="copyright" content="&copy; 2012 - CogniTom Academic Design" />
+	
+	<meta property="og:site_name" content="下北沢オープンソースCafe" />
+	<meta property="og:image" content="http://www.osscafe.net/images/164x164/eccube.png" />
+	
+	<meta name="fbgroup" content="https://www.facebook.com/groups/283598911686452/" />
+	<meta name="ajax.members" content="../../api/fb/group/283598911686452/members.json" />
+	<meta name="hsql.clubs" content="SELECT * FROM /ja/club/" />
+	<meta name="yinyang:selfload" content="true" />
+	
+	<link rel="template" href="../../style/template.html" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="../../js/yinyang.js"></script>
+</head>
+<body>
+	<h1>EC-CUBE部 (東京ユーザ会)</h1>
+	<p>EC-CUBEユーザーと、コワーキングしませんか？<br />EC-CUBEは日本発のECサイト構築CMSです。「部室」は、そのユーザが集う場所です。</p>
+	<ul class="members">
+		<!--{user in ajax.members}--><li><a href="#{user.profile_url|default:#}"><img src="#{user.pic_square}" alt="#{user.username}" /></a></li><!--{end}-->
+	</ul>
+	<h2>こんな活動をしています</h2>
+	<p>これまでにEC-CUBE部では、さまざまな勉強会など行なってきました。皆さんのアイディア・要望お待ちしています。</p>
+	<h2>オープンソースの部室?</h2>
+	<p>2週間に1回のペースで、集って仕事/勉強したり、時にはセミナーを開いたりするのが、オープンソースの部室です。定期開催なので、初めての人も気軽に、ベテランさんも準備なしで気楽に、参加できます。</p>
+	<ul>
+		<li>作業の合間の雑談で情報交換</li>
+		<li>始めたばかりで五里霧中 → 誰かに質問しよう</li>
+		<li>フィードバックをもらいながら開発</li>
+	</ul>
+	<p>などなど、活用して下さい!</p>
+	<h2>部室とプロジェクト</h2>
+	<p>下北沢オープンソースCafeには、他にもいろんなプロジェクトがあります。覗いてみて下さいね :-)</p>
+	<ul class="clubs small">
+		<!--{page in hsql.clubs}-->
+		<li><a href="#{page.file}"><img src="#{page.image}" /></a></li>
+		<!--{end}-->
+	</ul>
+</body>
+</html>

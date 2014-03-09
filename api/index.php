@@ -164,7 +164,7 @@ ____FQL;
 				'name' => $row['name'],
 				'pic_small' => $row['pic_small'],
 				'date' => $row['start_time'],
-				'day' => date('D', $row['start_time']),
+				'day' => $row['start_time'],
 			); break;
 		}
 	foreach ($map as $m){

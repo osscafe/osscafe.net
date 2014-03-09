@@ -158,14 +158,14 @@ ____FQL;
 		switch ($result['name']) {
 			case 'map': $map = $result['fql_result_set']; break;
 			case 'attendees': foreach ($result['fql_result_set'] as $row) $attendees[$row['uid']] = $row; break;
-			case 'events': foreach ($result['fql_result_set'] as $row) $events[$row['eid']] = array(
+			case 'events': foreach ($result['fql_result_set'] as $row) $row['start_time'];/*$events[$row['eid']] = array(
 				'description' => mb_strimwidth($row['description'], 0, 400, '...', 'UTF-8'),
 				'eid' => $row['eid'],
 				'name' => $row['name'],
 				'pic_small' => $row['pic_small'],
 				'date' => date('M j', $row['start_time']),
 				'day' => date('D', $row['start_time']),
-			); break;
+			);*/ break;
 		}
 	foreach ($map as $m){
 		$uid = $m['uid']; $eid = $m['eid'];
@@ -189,6 +189,20 @@ $app->get('/fb/group/:gid/members.json', function ($gid) use ($facebook) {
 ____FQL;
 	$result = $facebook->api(array('method'=>'fql.query','query'=>$fql));
     echo json_encode($result);
+});
+
+/**
+ * 最新のLivestream (直近5件目)
+ */
+$app->get('/livestream/latest.json', function () {
+  $data = array();
+	$url = 'http://api.new.livestream.com/accounts/shimokitazawa-osscafe/';
+	if ($json = file_get_contents($url)) {
+	  $result = json_decode($json);
+	  foreach ($result->past_events->data as $row) $data[] = array(
+	  );
+	}
+	echo json_encode($data);
 });
 
 $app->run();

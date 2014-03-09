@@ -10,11 +10,6 @@ $facebook = new Facebook(array(
 	'secret'=>$_SERVER['HTTP_FB_SECRET'],
 ));
 
-$app->get('/fb/event/debug.json', function () use ($facebook) {
-  echo date_default_timezone_get();
-  echo date('M j', strtotime('2014-03-12T10:00:00+0900'));
-});
-
 /**
  * 過去20件のイベント情報
  */
@@ -40,8 +35,8 @@ ____FQL;
 		'eid' => $row['eid'],
 		'name' => preg_replace('/^下北沢オープンソースCafe - /', '', $row['name']),
 		'pic_small' => $row['pic_small'],
-		'date' => date('M j', $row['start_time']),
-		'day' => date('D', $row['start_time']),
+		'date' => date('M j', strtotime($row['start_time'])),
+		'day' => date('D', strtotime($row['start_time'])),
 	);
 	echo json_encode($data);
 });
@@ -70,7 +65,7 @@ ____FQL;
 	for ($i = 0; $i < 4; $i++){
 		$week_data = array();
 		for ($j = 0; $j < 7; $j++) $week_data[] = array(
-			'date' => date('M j', $start_date + ($i*7 + $j) * (60*60*24)),
+			'date' => date('M j', strtotime($start_date) + ($i*7 + $j) * (60*60*24)),
 			'events' => array(),
 		);
 		$data[] = array(
@@ -85,8 +80,8 @@ ____FQL;
 		if (isset($data[$wn]['days'][$dn])) $data[$wn]['days'][$dn]['events'][] = array(
 			'eid' => $row['eid'],
 			'name' => preg_replace('/(^下北沢オープンソースCafe - | \(OSSの部室\)$| @下北沢$| \(メンター用\)$)/', '', $row['name']),
-			'date' => date('M j',$row['start_time']),
-			'day' => date('D',$row['start_time']),
+			'date' => date('M j',strtotime($row['start_time'])),
+			'day' => date('D',strtotime($row['start_time'])),
 			'pic' => $row['pic_small'],
 		);
 	}

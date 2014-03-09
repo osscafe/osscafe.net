@@ -10,6 +10,10 @@ $facebook = new Facebook(array(
 	'secret'=>$_SERVER['HTTP_FB_SECRET'],
 ));
 
+$app->get('/fb/event/debug.json', function () use ($facebook) {
+  echo date_default_timezone_get();
+}
+
 /**
  * 過去20件のイベント情報
  */
@@ -113,8 +117,8 @@ ____FQL;
 		'eid' => $row['eid'],
 		'name' => $row['name'],
 		'pic_big' => $row['pic_big'],
-		'date' => date('M j', $row['start_time']),
-		'day' => date('D', $row['start_time']),
+		'date' => '',//date('M j', $row['start_time']),
+		'day' => '',//date('D', $row['start_time']),
 	);
 	echo json_encode($data);
 });
@@ -163,8 +167,8 @@ ____FQL;
 				'eid' => $row['eid'],
 				'name' => $row['name'],
 				'pic_small' => $row['pic_small'],
-				'date' => $row['start_time'],
-				'day' => $row['start_time'],
+				'date' => '',//date('M j', $row['start_time']),
+				'day' => '',//date('D', $row['start_time']),
 			); break;
 		}
 	foreach ($map as $m){

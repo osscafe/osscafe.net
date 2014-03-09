@@ -65,7 +65,7 @@ ____FQL;
 	for ($i = 0; $i < 4; $i++){
 		$week_data = array();
 		for ($j = 0; $j < 7; $j++) $week_data[] = array(
-			'date' => date('M j', strtotime($start_date) + ($i*7 + $j) * (60*60*24)),
+			'date' => date('M j', $start_date + ($i*7 + $j) * (60*60*24)),
 			'events' => array(),
 		);
 		$data[] = array(
@@ -73,15 +73,16 @@ ____FQL;
 		);
 	}
 	foreach ($result as $row){
-		$di2 = getdate($row['start_time']-0);
+		$st = strtotime($row['start_time']);
+		$di2 = getdate($st);
 		$d2 = mktime(0, 0, 0, $di2['mon'], $di2['mday'], $di2['year']);
 		$d3 = ($d2 - $start_date) / (60*60*24);
 		$wn = floor($d3 / 7); $dn = $d3 % 7;
 		if (isset($data[$wn]['days'][$dn])) $data[$wn]['days'][$dn]['events'][] = array(
 			'eid' => $row['eid'],
 			'name' => preg_replace('/(^下北沢オープンソースCafe - | \(OSSの部室\)$| @下北沢$| \(メンター用\)$)/', '', $row['name']),
-			'date' => date('M j',strtotime($row['start_time'])),
-			'day' => date('D',strtotime($row['start_time'])),
+			'date' => date('M j', $st),
+			'day' => date('D', $st),
 			'pic' => $row['pic_small'],
 		);
 	}

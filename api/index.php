@@ -158,14 +158,14 @@ ____FQL;
 		switch ($result['name']) {
 			case 'map': $map = $result['fql_result_set']; break;
 			case 'attendees': foreach ($result['fql_result_set'] as $row) $attendees[$row['uid']] = $row; break;
-			case 'events': foreach ($result['fql_result_set'] as $row) $row['start_time'];/*$events[$row['eid']] = array(
+			case 'events': foreach ($result['fql_result_set'] as $row) $row['start_time']$events[$row['eid']] = array(
 				'description' => mb_strimwidth($row['description'], 0, 400, '...', 'UTF-8'),
 				'eid' => $row['eid'],
 				'name' => $row['name'],
 				'pic_small' => $row['pic_small'],
-				'date' => date('M j', $row['start_time']),
+				'date' => $row['start_time'],//date('M j', $row['start_time']),
 				'day' => date('D', $row['start_time']),
-			);*/ break;
+			); break;
 		}
 	foreach ($map as $m){
 		$uid = $m['uid']; $eid = $m['eid'];

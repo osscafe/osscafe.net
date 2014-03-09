@@ -12,7 +12,7 @@ $facebook = new Facebook(array(
 
 $app->get('/fb/event/debug.json', function () use ($facebook) {
   echo date_default_timezone_get();
-}
+});
 
 /**
  * 過去20件のイベント情報

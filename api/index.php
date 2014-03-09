@@ -113,8 +113,8 @@ ____FQL;
 		'eid' => $row['eid'],
 		'name' => $row['name'],
 		'pic_big' => $row['pic_big'],
-		'date' => '',//date('M j', $row['start_time']),
-		'day' => '',//date('D', $row['start_time']),
+		'date' => date('M j', strtotime($row['start_time'])),
+		'day' => date('D', strtotime($row['start_time'])),
 	);
 	echo json_encode($data);
 });
@@ -163,8 +163,8 @@ ____FQL;
 				'eid' => $row['eid'],
 				'name' => $row['name'],
 				'pic_small' => $row['pic_small'],
-				'date' => '',//date('M j', $row['start_time']),
-				'day' => '',//date('D', $row['start_time']),
+				'date' => date('M j', strtotime($row['start_time'])),
+				'day' => date('D', strtotime($row['start_time'])),
 			); break;
 		}
 	foreach ($map as $m){

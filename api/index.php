@@ -12,6 +12,7 @@ $facebook = new Facebook(array(
 
 $app->get('/fb/event/debug.json', function () use ($facebook) {
   echo date_default_timezone_get();
+  echo date('M j', '2014-03-12T10:00:00+0900');
 });
 
 /**
